@@ -1,6 +1,6 @@
-const Header = props => (
+const Header = ({ pageTitle }) => (
   <header>
-    <p>header</p>
+    <h1>{ pageTitle }</h1>
   </header>
 );
 
