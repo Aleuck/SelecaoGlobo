@@ -1,0 +1,56 @@
+{
+  "name": "paredao-bbb-be",
+  "description": "Back-end do Paredão BBB Web",
+  "version": "1.0.0",
+  "main": "src",
+  "license": "Proprietary",
+  "private": true,
+  "repository": "https://github.com/SelecaoGlobocom/Aleuck",
+  "author": {
+    "name": "A. Leuck",
+    "email": "aleuck@aleuck.dev",
+    "url": "https://aleuck.dev/"
+  },
+  "directories": {
+    "lib": "src",
+    "test": "test/",
+    "config": "config/"
+  },
+  "engines": {
+    "node": "^13.0.0",
+    "yarn": ">= 0.18.0"
+  },
+  "scripts": {
+    "test": "yarn run eslint && yarn run mocha",
+    "eslint": "eslint src/. test/. --config .eslintrc.json",
+    "dev": "nodemon src/",
+    "start": "node src/",
+    "mocha": "mocha test/ --recursive --exit"
+  },
+  "devDependencies": {
+    "@feathersjs/cli": "^4.2.5",
+    "axios": "^0.19.1",
+    "eslint": "^6.7.2",
+    "mocha": "^6.2.2",
+    "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "@feathersjs/authentication": "^4.4.1",
+    "@feathersjs/authentication-local": "^4.4.1",
+    "@feathersjs/authentication-oauth": "^4.4.1",
+    "@feathersjs/configuration": "^4.4.1",
+    "@feathersjs/errors": "^4.4.1",
+    "@feathersjs/express": "^4.4.1",
+    "@feathersjs/feathers": "^4.4.1",
+    "@feathersjs/socketio": "^4.4.1",
+    "@feathersjs/transport-commons": "^4.4.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "feathers-sequelize": "^6.1.0",
+    "helmet": "^3.21.2",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.2",
+    "serve-favicon": "^2.5.0",
+    "winston": "^3.0.0"
+  }
+}
