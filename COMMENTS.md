@@ -37,10 +37,16 @@ Poderia usar google, facebook etc. para o login. Mas não acho que faria sentido
 ### Feathers.js:
 Feathers até tem suporte a outros bancos de dados sem usar o *Sequelize*. Os que ele suporta por padrão são:
 
-- Cassandra
-- NeDB
-- Mongoose
+
+- A custom service - Trabalhoso;
+- Cassandra - Desnecessário, complicado;
+- In Memory - Persistência é importante;
+- KnexJS - Interessante, mas nao parece muito diferente do Sequelize;
+- NeDB - Não parece confiável;
 - MongoDB - Até poderia usar, mas como estou desenvolvendo em *ArchLinux*, teria que compilar ele, o que não é nada prático.
+- Mongoose - É para MongoDB, que já está fora de cogitação pelo motivo acima.
+- Objection - Interessante, mas nao parece muito diferente do Sequelize;
+- **Sequelize - Já tenho alguma familiariedade.**
 
   - É escalável para milhões de usuários simultâneos?
     - Possível clusterizar servidor.
