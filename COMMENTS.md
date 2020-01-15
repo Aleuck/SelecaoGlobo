@@ -63,3 +63,7 @@ Feathers até tem suporte a outros bancos de dados sem usar o *Sequelize*. Os qu
 ### Next.js
 
 Tentei usar o *styled jsx* que supostamente vem junto no Next.js. Porém me dei conta que ele não suporta renderização em back-end, portanto vou optar por css/scss.
+
+## 2020-01-15 - Quarta
+
+A fonte na imagem de exemplo que forneceram parecia ser a "ProximaNova" que é utilizada bastante pela Globo.com. Porém como a fonte não é gratuíta, resolvi usar a Raleway da Google que é relativamente semelhante.
