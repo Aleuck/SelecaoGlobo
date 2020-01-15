@@ -1,5 +1,15 @@
 # Comments
 
+## Ambiente de desenvolvimento:
+- Sistema
+  - Sistema Operacional: Arch Linux
+  - Kernel: Linux 5.4.8-arch1-1
+  - Arquitetura: x86-64
+- Software
+  - [NodeJS](https://nodejs.org/) 13.6.0
+  - [MariaDB](https://mariadb.org/) 15.1
+  - [Yarn](https://yarnpkg.com/) 1.21.1
+
 ## 2020-01-13 - Segunda
 
 ### Front-end
@@ -9,25 +19,41 @@ Pretendo usar next.js, mais para aprender mais sobre a ferramenta do que para mo
 
 Pretendo escolher um destes:
 
-  - Feathers.js - Facilita a utilização de socket.io com *real time updates*;
-  - Express.js - Flexibilidade; e
-  - Flask - Flexibilidade.
+- Feathers.js - Facilita a utilização de socket.io com *real time updates*;
+- Express.js - Flexibilidade; e
+- Flask - Flexibilidade.
 
 ### Database
 Pretendo escolher um destes:
-  - Redis - simplicidade; e
-  - MariaDB - (Feathers.js utiliza sequielize por padrão, que funciona melhor com banco de dados relacionais, facilita o trabalho).
+- Redis - simplicidade; e
+- MariaDB - (Feathers.js utiliza sequielize por padrão, que funciona melhor com banco de dados relacionais, facilita o trabalho).
 
 ## 2020-01-14 - Terça
-Feathers.js:
+
+Penso em fazer uma tela de administração para gerenciar cada paredão (definir participantes etc.). Por isso gerei o app do Feathers.js já com suporte à autenticação local.
+
+Poderia usar google, facebook etc. para o login. Mas não acho que faria sentido nessa aplicação, já que o login serve apenas para adminsitração.
+
+### Feathers.js:
+Feathers até tem suporte a outros bancos de dados sem usar o *Sequelize*. Os que ele suporta por padrão são:
+
+- Cassandra
+- NeDB
+- Mongoose
+- MongoDB - Até poderia usar, mas como estou desenvolvendo em *ArchLinux*, teria que compilar ele, o que não é nada prático.
+
+  - É escalável para milhões de usuários simultâneos?
+    - Possível clusterizar servidor.
   - Transporte:
     - [Expressjs](https://expressjs.com/)
       - REST
-    - Socket.io
-      - Permite fazer os resultados atualizarem em "tempo real", sem polling;
-    - É escalável para milhões de usuários simultâneos?
-      - Possível clusterizar servidor;
+    - [Socket.io](https://socket.io/)
+      - Permite fazer os resultados atualizarem em "tempo real", sem polling.
   - DB:
-    - [Sequelize](Sequelize.org)
+    - [Sequelize](https://sequelize.org/)
       - Problema de concorrência:
-        - [Incrementando valores de forma atômica](https://sequelize.org/master/manual/instances.html#incrementing)
+        - [Incrementando valores de forma atômica](https://sequelize.org/master/manual/instances.html#incrementing).
+
+### Next.js
+
+Tentei usar o *styled jsx* que supostamente vem junto no Next.js. Porém me dei conta que ele não suporta renderização em back-end, portanto vou optar por css/scss.
