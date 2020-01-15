@@ -1,5 +1,5 @@
 const Footer = props => (
-  <footer>
+  <footer className="layout-default__footer">
     <p>footer</p>
   </footer>
 );
