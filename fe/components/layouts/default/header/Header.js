@@ -2,9 +2,10 @@
  * Default layout's header component.
  * @param {Object} props - Component props.
  * @param {string} props.pageTitle - Title of the current page
+ * @param {string} props.className - Header class.
  */
-const Header = ({ pageTitle }) => (
-  <header className="layout-default__header">
+const Header = ({ className, pageTitle }) => (
+  <header className={ className }>
     <h1>{ pageTitle }</h1>
   </header>
 );
