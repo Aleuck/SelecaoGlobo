@@ -1,6 +1,7 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Header from './header';
 import Footer from './footer';
+import PropTypes from 'prop-types';
 import styles from './Layout.scss';
 
 /**
@@ -25,5 +26,13 @@ const DefaultLayout = ({ pageTitle, children }) => (
     <Footer className={styles['layout-default__footer']} />
   </div>
 );
+
+DefaultLayout.propTypes = {
+  pageTitle: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]),
+};
 
 export default DefaultLayout;

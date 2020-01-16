@@ -1,4 +1,4 @@
-import Layout from "../components/layouts/default";
+import Layout from '../components/layouts/default';
 
 const Index = () => (
   <Layout pageTitle="Paredão BBB">

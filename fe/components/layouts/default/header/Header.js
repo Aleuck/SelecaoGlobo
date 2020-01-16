@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 /**
  * Default layout's header component.
  * @param {Object} props - Component props.
@@ -9,5 +11,10 @@ const Header = ({ className, pageTitle }) => (
     <h1>{ pageTitle }</h1>
   </header>
 );
+
+Header.propTypes = {
+  pageTitle: PropTypes.string,
+  className: PropTypes.string,
+};
 
 export default Header;

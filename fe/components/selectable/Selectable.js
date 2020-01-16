@@ -1,6 +1,7 @@
-import styles from './Selectable.scss'
+import styles from './Selectable.scss';
 import classNames from 'classnames';
-
+import PropTypes from 'prop-types';
+import { Fragment } from 'react';
 /**
  * Handles
  * @callback handleChange
@@ -16,7 +17,7 @@ import classNames from 'classnames';
  */
 const Selectable = ({ id, name, selected, onChange, children, ...rest }) => {
   return (
-    <React.Fragment>
+    <Fragment>
       <label
         htmlFor={id}
         className={classNames(
@@ -25,10 +26,12 @@ const Selectable = ({ id, name, selected, onChange, children, ...rest }) => {
         )}
         // Makes it keyboard reachable (via tab)
         tabIndex={0}
-        // And selectable with space or Enter keys
+        // And selectable with 'space' or 'Enter' keys
         onKeyDown={event => {
           if ([' ', 'Enter'].includes(event.key)) {
-            onChange();
+            if (typeof onChange === 'function') {
+              onChange();
+            }
           }
         }}
         {...rest}
@@ -44,8 +47,19 @@ const Selectable = ({ id, name, selected, onChange, children, ...rest }) => {
         checked={selected}
         onChange={onChange}
       />
-    </React.Fragment>
+    </Fragment>
   );
+};
+
+Selectable.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  selected: PropTypes.bool,
+  onChange: PropTypes.func,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]),
 };
 
 export default Selectable;
