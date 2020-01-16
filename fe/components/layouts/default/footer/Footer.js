@@ -1,3 +1,6 @@
+/**
+ * Default layout's footer component.
+ */
 const Footer = props => (
   <footer className="layout-default__footer">
     <p>footer</p>

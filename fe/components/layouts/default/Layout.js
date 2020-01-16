@@ -3,6 +3,11 @@ import Header from './header';
 import Footer from './footer';
 import './Layout.scss';
 
+/**
+ * Default layout to render pages.
+ * @param {Object} props - Component properties
+ * @param {string} props.pageTitle - Title of the page being rendered with this layout
+ */
 const DefaultLayout = ({ pageTitle, children }) => (
   <div className="site layout-default">
     <Head>
