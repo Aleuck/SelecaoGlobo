@@ -12,7 +12,7 @@ const DefaultLayout = ({ pageTitle, children }) => (
   <div className="site layout-default">
     <Head>
       <title>{ pageTitle }</title>
-      <meta name="description" content="Vote no paredão do bbb" />
+      <meta name="description" content="Vote para o paredão do BBB." />
       <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&amp;display=swap" rel="stylesheet" />
     </Head>
     <Header pageTitle={ pageTitle } />
