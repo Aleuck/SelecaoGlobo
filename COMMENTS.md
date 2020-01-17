@@ -85,3 +85,10 @@ Nunca havia usado essas feramentas com *React*. Foi um pequeno desafio configura
 Optei pelo uso de *CSS Modules* para que as classes fiquem em escopo local, ou seja, não preciso me preocupar com nomes repetidos em arquivos diferentes.
 
 Para poder reutilizar componentes com diferentes estilos, criei um *ThemeContext* para prover as classes.
+
+### Componentes
+
+Pensei em utilizar MaterialUI, mas com isso eu acabaria não utilizando muito meus conhecimentos de HTML/CSS, ou habilidade com o React, pois a implementação não é trivial.
+
+Criei um componente *Selectable* que serve para fazer seu conteúdo ser selecinável (como um *checkbox* ou *radio*).
+Tive o cuidado para que seja acessivel usando também o teclado (obter foco com *tabs* e selecionar com espaço ou *Enter*).
