@@ -1,16 +1,20 @@
-import PropTypes from 'prop-types';
+import { Component } from 'react';
+import ThemeContext from '../../../../themes/ThemeContext';
 
 /**
  * Default layout's footer component.
  */
-const Footer = ({ className }) => (
-  <footer className={ className }>
-    <p>footer</p>
-  </footer>
-);
+class Footer extends Component {
+  static contextType = ThemeContext;
+  render() {
+    return (
+      <footer className={this.context.page__footer}>
+        <p>footer</p>
+      </footer>
+    );
+  }
+}
 
-Footer.propTypes = {
-  className: PropTypes.string,
-};
+Footer.context;
 
 export default Footer;

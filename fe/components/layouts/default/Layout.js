@@ -2,30 +2,36 @@ import Head from 'next/head';
 import Header from './header';
 import Footer from './footer';
 import PropTypes from 'prop-types';
-import styles from './Layout.scss';
+import { Component } from 'react';
+import ThemeContext from '../../../themes/ThemeContext';
 
 /**
  * Default layout to render pages.
  * @param {Object} props - Component properties
  * @param {string} props.pageTitle - Title of the page being rendered with this layout
  */
-const DefaultLayout = ({ pageTitle, children }) => (
-  <div className={styles['layout-default']}>
-    <Head>
-      <title>{ pageTitle }</title>
-      <meta name="description" content="Vote para o paredão do BBB." />
-      <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&amp;display=swap" rel="stylesheet" />
-    </Head>
+class DefaultLayout extends Component {
+  static contextType = ThemeContext;
+  render() {
+    return (
+      <div className={this.context.page}>
+        <Head>
+          <title>{this.props.pageTitle}</title>
+          <meta name="description" content="Vote para o paredão do BBB." />
+          <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&amp;display=swap" rel="stylesheet" />
+        </Head>
 
-    <Header pageTitle={ pageTitle }  className={ styles['layout-default__header'] } />
+        <Header pageTitle={this.props.pageTitle} />
 
-    <div className={styles['layout-default__content']}>
-      { children }
-    </div>
+        <div className={this.context.page__content}>
+          {this.props.children}
+        </div>
 
-    <Footer className={styles['layout-default__footer']} />
-  </div>
-);
+        <Footer />
+      </div>
+    );
+  }
+}
 
 DefaultLayout.propTypes = {
   pageTitle: PropTypes.string,
