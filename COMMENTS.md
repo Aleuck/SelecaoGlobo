@@ -74,7 +74,7 @@ Adicionei autoprefixer ao sistema de build para facilitar compatibilidade com ou
 
 ### Testes
 
-Para testes unitários no front-end optei pelo [*Mocha*](https://mochajs.org/) com asserções do [*Chai*](https://www.chaijs.com/), pois já tenho alguma familiariedade com eles.
+Para testes unitários no front-end, optei pelo [*Mocha*](https://mochajs.org/) com asserções do [*Chai*](https://www.chaijs.com/), pois já tenho alguma familiariedade com eles.
 
 Nunca havia usado essas feramentas com *React*. Foi um pequeno desafio configurar.
 
