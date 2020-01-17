@@ -66,4 +66,22 @@ Tentei usar o *styled jsx* que supostamente vem junto no Next.js. Porém me dei 
 
 ## 2020-01-15 - Quarta
 
+### Estilos
+
 A fonte na imagem de exemplo que forneceram parecia ser a "ProximaNova" que é utilizada bastante pela Globo.com. Porém como a fonte não é gratuíta, resolvi usar a Raleway da Google que é relativamente semelhante.
+
+Adicionei autoprefixer ao sistema de build para facilitar compatibilidade com outros navegadores (IE, Safari etc.).
+
+### Testes
+
+Para testes unitários no front-end optei pelo [*Mocha*](https://mochajs.org/) com asserções do [*Chai*](https://www.chaijs.com/), pois já tenho alguma familiariedade com eles.
+
+Nunca havia usado essas feramentas com *React*. Foi um pequeno desafio configurar.
+
+## 2020-01-16 - Quinta
+
+### Estilos
+
+Optei pelo uso de *CSS Modules* para que as classes fiquem em escopo local, ou seja, não preciso me preocupar com nomes repetidos em arquivos diferentes.
+
+Para poder reutilizar componentes com diferentes estilos, criei um *ThemeContext* para prover as classes.
