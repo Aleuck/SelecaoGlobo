@@ -1,3 +1,4 @@
+import '../themes/base-css';
 import Layout from '../components/layouts/default';
 
 const Index = () => (
