@@ -12,17 +12,19 @@ import { Fragment } from 'react';
  * @param {Object} props - Component properties.
  * @param {string} props.id - Input id, also used as value.
  * @param {string} props.name - Input name.
- * @param {boolean} props.selected - Type of input: "checkbox" or "radio".
+ * @param {boolean} [props.selected=false] - Controls selected state.
+ * @param {string} [props.className] - Class added to element.
+ * @param {string} [props.classNameSelected] - Class added to element when it is selected.
  * @param {handleChange} props.onChange - Handler for changes on input.
  */
-const Selectable = ({ id, name, selected, onChange, children, ...rest }) => {
+const Selectable = ({ id, name, selected, className, classNameSelected, onChange, children, ...rest }) => {
   return (
     <Fragment>
       <label
         htmlFor={id}
         className={classNames(
-          styles.selectable__label,
-          { [styles['selectable__label--selected']]: selected }
+          ( className || styles.label ), // Only use default styles if custom are not provided.
+          { [(classNameSelected || styles.labelSelected)]: selected ? true : false },
         )}
         // Makes it keyboard reachable (via tab)
         tabIndex={0}
@@ -39,7 +41,7 @@ const Selectable = ({ id, name, selected, onChange, children, ...rest }) => {
         {children}
       </label>
       <input
-        className={styles.selectable__input}
+        className={styles.input}
         type="checkbox"
         name={name}
         id={id}
@@ -52,14 +54,16 @@ const Selectable = ({ id, name, selected, onChange, children, ...rest }) => {
 };
 
 Selectable.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   selected: PropTypes.bool,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.arrayOf(PropTypes.element)
-  ]),
+  ]).isRequired,
+  className: PropTypes.string,
+  classNameSelected: PropTypes.string,
 };
 
 export default Selectable;

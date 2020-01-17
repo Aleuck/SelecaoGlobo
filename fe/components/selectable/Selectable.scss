@@ -1,23 +1,21 @@
-.selectable {
-  &__label {
-    display: inline-block;
+.label {
+  display: inline-block;
 
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 1mm teal;
-    }
-
-    &--selected {
-      outline: .5mm solid currentColor;
-
-      &:focus {
-        box-shadow: 0 0 1mm teal;
-        outline: .5mm solid currentColor;
-      }
-    }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1mm teal;
   }
+}
 
-  &__input {
-    display: none;
+.labelSelected {
+  outline: .5mm solid currentColor;
+
+  &:focus {
+    box-shadow: 0 0 1mm teal;
+    outline: .5mm solid currentColor;
   }
+}
+
+.input {
+  display: none;
 }
