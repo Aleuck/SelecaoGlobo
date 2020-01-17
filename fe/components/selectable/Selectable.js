@@ -58,10 +58,7 @@ Selectable.propTypes = {
   name: PropTypes.string.isRequired,
   selected: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ]).isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   classNameSelected: PropTypes.string,
 };

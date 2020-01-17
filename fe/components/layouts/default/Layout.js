@@ -35,10 +35,7 @@ class DefaultLayout extends Component {
 
 DefaultLayout.propTypes = {
   pageTitle: PropTypes.string,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
-  ]),
+  children: PropTypes.node,
 };
 
 export default DefaultLayout;
