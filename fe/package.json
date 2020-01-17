@@ -20,7 +20,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "NODE_ENV=test mocha"
+    "test": "NODE_ENV=test mocha",
+    "eslint": "eslint ./"
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
