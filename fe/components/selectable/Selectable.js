@@ -1,10 +1,12 @@
-import styles from './Selectable.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Fragment } from 'react';
+import React from 'react';
+import ThemeContext from '../../themes/ThemeContext';
+
 /**
- * Handles
- * @callback handleChange
+ * Change event.
+ * @event changeEvent
+ * @param {React.FormEvent} event
  */
 
 /**
@@ -13,54 +15,57 @@ import { Fragment } from 'react';
  * @param {string} props.id - Input id, also used as value.
  * @param {string} props.name - Input name.
  * @param {boolean} [props.selected=false] - Controls selected state.
- * @param {string} [props.className] - Class added to element.
- * @param {string} [props.classNameSelected] - Class added to element when it is selected.
- * @param {handleChange} props.onChange - Handler for changes on input.
+ * @param {number} [props.tabIndex=0]
+ * @param {changeEvent} props.onChange - Handler for changes on input.
+ * @listens changeEvent
  */
-const Selectable = ({ id, name, selected, className, classNameSelected, onChange, children, ...rest }) => {
-  return (
-    <Fragment>
-      <label
-        htmlFor={id}
-        className={classNames(
-          ( className || styles.label ), // Only use default styles if custom are not provided.
-          { [(classNameSelected || styles.labelSelected)]: selected ? true : false },
-        )}
-        // Makes it keyboard reachable (via tab)
-        tabIndex={0}
-        // And selectable with 'space' or 'Enter' keys
-        onKeyDown={event => {
-          if ([' ', 'Enter'].includes(event.key)) {
-            if (typeof onChange === 'function') {
-              onChange();
-            }
-          }
-        }}
-        {...rest}
-      >
-        {children}
-      </label>
-      <input
-        className={styles.input}
-        type="checkbox"
-        name={name}
-        id={id}
-        value={id}
-        checked={selected}
-        onChange={onChange}
-      />
-    </Fragment>
-  );
-};
+class Selectable extends React.Component {
+  static contextType = ThemeContext;
 
-Selectable.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  selected: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
-  children: PropTypes.node,
-  className: PropTypes.string,
-  classNameSelected: PropTypes.string,
-};
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    selected: PropTypes.bool,
+    tabIndex: PropTypes.number,
+    onChange: PropTypes.func.isRequired,
+    children: PropTypes.node,
+  };
+
+  keyDownHandler = event => {
+    if (typeof this.props.onChange === 'function') {
+      if ([' ', 'Enter'].includes(event.key)) {
+        this.props.onChange();
+      }
+    }
+  };
+
+  render() {
+    const { id, name, selected, tabIndex, onChange, children} = this.props;
+    return (
+      <React.Fragment>
+        <label
+          htmlFor={id}
+          className={classNames(
+            this.context.selectable,
+            { [this.context['selectable--selected']]: selected ? true : false },
+          )}
+          tabIndex={tabIndex || 0} // Makes it keyboard reachable (via tab)
+          onKeyDown={this.keyDownHandler} // And selectable with 'space' or 'Enter' keys
+        >
+          {children}
+        </label>
+        <input
+          className={this.context.selectable__input}
+          type="checkbox"
+          name={name}
+          id={id}
+          value={id}
+          checked={selected}
+          onChange={onChange}
+        />
+      </React.Fragment>
+    );
+  }
+}
 
 export default Selectable;
