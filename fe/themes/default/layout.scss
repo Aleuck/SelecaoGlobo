@@ -1,0 +1,30 @@
+@import './config';
+
+.page {
+  font-family: Raleway, sans-serif;
+  font-size: 3mm;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+
+  h1,
+  h2 {
+    font-family: Raleway, sans-serif;
+    font-weight: 300;
+  }
+
+  &__header {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    text-align: center;
+  }
+
+  &__footer {
+    text-align: center;
+  }
+}

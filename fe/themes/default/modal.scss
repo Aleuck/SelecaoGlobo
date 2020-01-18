@@ -1,0 +1,11 @@
+@import './config';
+
+// Component: Modal
+.modal {
+  border: 1.1mm solid color('light-gray');
+  border-radius: 1mm;
+  width: 130mm;
+  max-width: 85vw;
+  min-width: 30mm;
+  margin: 0 auto;
+}

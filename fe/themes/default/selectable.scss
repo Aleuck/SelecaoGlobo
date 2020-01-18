@@ -1,0 +1,25 @@
+@import './config';
+
+// Component: Selectable
+.selectable {
+  display: inline-block;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1mm inset color('secondary');
+  }
+
+  &--selected {
+    outline: 1mm solid color('primary');
+
+    &:focus {
+      box-shadow: 0 0 1mm inset color('secondary');
+      outline: 1mm solid color('primary');
+    }
+  }
+
+  &__input {
+    display: none;
+  }
+}

@@ -1,7 +1,11 @@
 $colors: (
-  'primary': #939,
+  'primary': #ff9a00,
+  'secondary': #0080df,
   'white': #fff,
   'black': #000,
+  'lighter-gray': #f5f5f5,
+  'light-gray': #eaeaea,
+  'gray': #d6d6d6,
 );
 
 @function color($colorName) {

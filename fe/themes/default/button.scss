@@ -1,0 +1,14 @@
+@import './config';
+
+// Component: Button
+.button {
+  background: color('secondary') linear-gradient(0, #006cc2, #0b95fd);
+  box-shadow: inset 0 0 .2mm rgba(100%, 100%, 100%, .7);
+  font-size: .95em;
+  border: .3mm solid #1089ea;
+  color: color('white');
+  border-radius: .8mm;
+  padding: 1.8mm 5mm;
+  font-weight: 700;
+  line-height: 130%;
+}

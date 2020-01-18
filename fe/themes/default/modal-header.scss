@@ -1,0 +1,15 @@
+@import './config';
+
+// Component: ModalHeader
+.modalHeader {
+  h2 {
+    text-transform: uppercase;
+    margin: 3mm;
+  }
+
+  &__separator {
+    background-image: url('/images/bg-dotted.png');
+    height: 3mm;
+    margin: 0 4mm;
+  }
+}
