@@ -1,6 +1,6 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import ThemeContext from '../../themes/ThemeContext';
-import React from 'react';
 
 /**
  * @event clickEvent
@@ -12,8 +12,9 @@ class Button extends React.Component {
   /**
    * Button component
    * @constructs Button
-   * @param {Object} props - Component props
-   * @param {clickEvent} props.onClick - On click handler.
+   * @param {Object} [props] - Component props
+   * @param {boolean} [props.disabled=false] - On click handler.
+   * @param {clickEvent} [props.onClick] - On click handler.
    * @listens clickEvent
    */
   constructor(props) {
@@ -21,12 +22,14 @@ class Button extends React.Component {
   }
   static contextType = ThemeContext;
   static propTypes = {
+    disabled: PropTypes.bool,
     onClick: PropTypes.func,
     children: PropTypes.node,
   };
   render() {
+    const { disabled, onClick } = this.props;
     return (
-      <button onClick={this.props.onClick} className={this.context.button}>
+      <button disabled={disabled} onClick={onClick} className={this.context.button}>
         {this.props.children}
       </button>
     );
