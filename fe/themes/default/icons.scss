@@ -1,0 +1,16 @@
+.icon {
+  display: inline-block;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+  // Sizes
+  &-36 {
+    width: 36px;
+    height: 36px;
+  }
+
+  // Images
+  &-wall {
+    background-image: url(/images/icon-wall.png);
+  }
+}

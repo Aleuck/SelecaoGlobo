@@ -5,6 +5,7 @@ import modal from './modal.scss';
 import modalHeader from './modal-header.scss';
 import modalFooter from './modal-footer.scss';
 import participant from './participant.scss';
+import icons from './icons.scss';
 
 const styles = Object.assign({},
   layout,
@@ -14,6 +15,7 @@ const styles = Object.assign({},
   modalHeader,
   modalFooter,
   participant,
+  icons,
 );
 
 export default styles;
