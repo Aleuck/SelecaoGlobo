@@ -35,7 +35,10 @@
   color: color('white');
   border: 0;
   border-radius: 2mm;
-  padding: 2mm 4mm;
+  padding: 2mm 5mm;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 130%;
 }
 
 // Component: Selectable
