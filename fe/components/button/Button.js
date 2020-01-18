@@ -7,12 +7,18 @@ import React from 'react';
  * @param {React.MouseEvent} event
  */
 
-/**
- * Button component
- * @param {clickEvent} onClick
- * @listens clickEvent
- */
+
 class Button extends React.Component {
+  /**
+   * Button component
+   * @constructs Button
+   * @param {Object} props - Component props
+   * @param {clickEvent} props.onClick - On click handler.
+   * @listens clickEvent
+   */
+  constructor(props) {
+    super(props);
+  }
   static contextType = ThemeContext;
   static propTypes = {
     onClick: PropTypes.func,
