@@ -19,12 +19,13 @@ class BaseIcon extends React.Component {
   static sizes = [36];
   render() {
     const { size, iconName } = this.props;
+    const classes = this.context.icons;
     return (
       <span
         className={classNames(
-          this.context.icon,
-          { [this.context[`icon-${iconName}`]]: Boolean(iconName) },
-          { [this.context[`icon-${size}`]]: BaseIcon.sizes.includes(size) },
+          classes.icon,
+          { [classes[`icon-${iconName}`]]: Boolean(iconName) },
+          { [classes[`icon-${size}`]]: BaseIcon.sizes.includes(size) },
         )}
       />
     );

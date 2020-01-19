@@ -41,13 +41,14 @@ class Selectable extends React.Component {
 
   render() {
     const { id, name, selected, tabIndex, onChange, children} = this.props;
+    const classes = this.context.selectable
     return (
       <React.Fragment>
         <label
           htmlFor={id}
           className={classNames(
-            this.context.selectable,
-            { [this.context['selectable--selected']]: selected ? true : false },
+            classes.selectable,
+            { [classes['selectable--selected']]: selected ? true : false },
           )}
           tabIndex={tabIndex || 0} // Makes it keyboard reachable (via tab)
           onKeyDown={this.keyDownHandler} // And selectable with 'space' or 'Enter' keys
@@ -55,7 +56,7 @@ class Selectable extends React.Component {
           {children}
         </label>
         <input
-          className={this.context.selectable__input}
+          className={classes.selectable__input}
           type="checkbox"
           name={name}
           id={id}

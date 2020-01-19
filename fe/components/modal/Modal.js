@@ -15,9 +15,10 @@ class Modal extends React.Component {
   }
 
   render() {
+    const classes = this.context.modal
     return (
-      <div className={this.context.modal}>
-        <div className={this.context.modal__wrapper}>
+      <div className={classes.modal}>
+        <div className={classes.modal__wrapper}>
           {this.props.children}
         </div>
       </div>

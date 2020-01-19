@@ -7,8 +7,9 @@ import ThemeContext from '../../../../themes/ThemeContext';
 class Footer extends Component {
   static contextType = ThemeContext;
   render() {
+    const classes = this.context.layout;
     return (
-      <footer className={this.context.page__footer}>
+      <footer className={classes.page__footer}>
         <p><small>A. Leuck - Seleção para Desenvolvedor(a) Front-end - globo.com</small></p>
       </footer>
     );

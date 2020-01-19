@@ -11,13 +11,14 @@ class ModalHeader extends React.Component {
 
   render() {
     const { title, icon } = this.props;
+    const classes = this.context.modalHeader
     return (
-      <div className={this.context.modalHeader}>
-        <div className={this.context.modalHeader__wrapper}>
-          {icon && (<div className={this.context.modalHeader__icon}>{icon}</div>)}
-          {title && (<div className={this.context.modalHeader__title}>{title}</div>)}
+      <div className={classes.modalHeader}>
+        <div className={classes.modalHeader__wrapper}>
+          {icon && (<div className={classes.modalHeader__icon}>{icon}</div>)}
+          {title && (<div className={classes.modalHeader__title}>{title}</div>)}
         </div>
-        <div className={this.context.modalHeader__separator}></div>
+        <div className={classes.modalHeader__separator}></div>
       </div>
     );
   }

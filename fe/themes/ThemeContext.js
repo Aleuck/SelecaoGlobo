@@ -1,4 +1,4 @@
-import defaultStyles from './default';
+import * as defaultStyles from './default';
 import { createContext } from 'react';
 
 const ThemeContext = createContext(defaultStyles);

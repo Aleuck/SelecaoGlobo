@@ -28,10 +28,11 @@ class SelectableParticipant extends React.Component {
       selected,
       onChange,
     } = this.props;
+    const classes = this.context.selectableParticipant
 
     return (
-      <div className={this.context.participant}>
-        <h4 className={this.context.participant__name}>{participant.name}</h4>
+      <div className={classes.participant}>
+        <h4 className={classes.participant__name}>{participant.name}</h4>
         <Selectable
           id={participant.id}
           name="participant"
@@ -40,12 +41,12 @@ class SelectableParticipant extends React.Component {
           role="radio"
         >
           <img
-            className={this.context.participant__img}
+            className={classes.participant__img}
             src={participant.image}
             alt={participant.name}
           />
         </Selectable>
-        <p className={this.context.participant__text}>
+        <p className={classes.participant__text}>
           Para eliminar o <strong>{participant.name}</strong> pelo telefone<br />
           disque <strong>{participant.callNumber}</strong> ou mande um SMS para <strong>{participant.smsNumber}</strong>
         </p>

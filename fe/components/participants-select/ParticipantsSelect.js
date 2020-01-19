@@ -33,8 +33,9 @@ class ParticipantsSelect extends React.Component {
     const {
       participants,
     } = this.props;
+    const classes = this.context.participantsSelect
     return (
-      <div className={this.context['participants-select']}>
+      <div className={classes['participants-select']}>
         {participants.map(participant => (
           <SelectableParticipant
             key={participant.id}

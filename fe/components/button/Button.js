@@ -28,8 +28,9 @@ class Button extends React.Component {
   };
   render() {
     const { disabled, onClick } = this.props;
+    const classes = this.context.button;
     return (
-      <button disabled={disabled} onClick={onClick} className={this.context.button}>
+      <button disabled={disabled} onClick={onClick} className={classes.button}>
         {this.props.children}
       </button>
     );

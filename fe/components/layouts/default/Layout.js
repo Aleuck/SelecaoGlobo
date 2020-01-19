@@ -13,8 +13,9 @@ import ThemeContext from '../../../themes/ThemeContext';
 class DefaultLayout extends Component {
   static contextType = ThemeContext;
   render() {
+    const classes = this.context.layout;
     return (
-      <div className={this.context.page}>
+      <div className={classes.page}>
         <Head>
           <title>{this.props.pageTitle}</title>
           <meta name="description" content="Vote para o paredão do BBB." />
@@ -23,7 +24,7 @@ class DefaultLayout extends Component {
 
         <Header pageTitle={this.props.pageTitle} />
 
-        <div className={this.context.page__content}>
+        <div className={classes.page__content}>
           {this.props.children}
         </div>
 

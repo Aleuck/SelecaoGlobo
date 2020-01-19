@@ -1,23 +1,9 @@
-import layout from './layout.scss';
-import button from './button.scss';
-import modal from './modal.scss';
-import selectable from './selectable.scss';
-import participant from './participant.scss';
-import participantsSelect from './participants-select.scss';
-import modalHeader from './modal-header.scss';
-import modalFooter from './modal-footer.scss';
-import icons from './icons.scss';
-
-const styles = Object.assign({},
-  layout,
-  button,
-  selectable,
-  participant,
-  participantsSelect,
-  modal,
-  modalHeader,
-  modalFooter,
-  icons,
-);
-
-export default styles;
+export{ default as layout } from './layout.scss';
+export{ default as button } from './button.scss';
+export{ default as modal } from './modal.scss';
+export{ default as selectable } from './selectable.scss';
+export{ default as selectableParticipant } from './participant.scss';
+export{ default as participantsSelect } from './participants-select.scss';
+export{ default as modalHeader } from './modal-header.scss';
+export{ default as modalFooter } from './modal-footer.scss';
+export{ default as icons } from './icons.scss';

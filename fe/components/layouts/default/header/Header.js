@@ -10,8 +10,9 @@ import ThemeContext from '../../../../themes/ThemeContext';
 class Header extends Component {
   static contextType = ThemeContext;
   render() {
+    const classes = this.context.layout;
     return (
-      <header className={this.context.page__header}>
+      <header className={classes.page__header}>
         <h1>{ this.props.pageTitle }</h1>
       </header>
     );

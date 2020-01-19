@@ -9,8 +9,9 @@ class ModalFooter extends React.Component {
   };
 
   render() {
+    const classes = this.context.modalFooter
     return (
-      <div className={this.context.modalFooter}>
+      <div className={classes.modalFooter}>
         {this.props.children}
       </div>
     );
