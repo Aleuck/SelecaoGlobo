@@ -9,7 +9,7 @@ class Footer extends Component {
   render() {
     return (
       <footer className={this.context.page__footer}>
-        <p>footer</p>
+        <p><small>A. Leuck - Seleção para Desenvolvedor(a) Front-end - globo.com</small></p>
       </footer>
     );
   }
