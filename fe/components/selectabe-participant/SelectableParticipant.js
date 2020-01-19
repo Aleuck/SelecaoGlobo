@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ThemeContext from '../../themes/ThemeContext';
 import Selectable from '../selectable';
+import { propType as participantPropType } from '../../models/participant';
+
 /**
  * SelectableParticipant Component
  * @class
+ * @extends React.Component
  * @param {Object} props
- * @param {Object} props
+ * @param {string} props.id
+ * @param {string} props.name
+ * @param {Object} props.participant
  */
 class SelectableParticipant extends React.Component {
   static contextType = ThemeContext;
@@ -14,6 +19,7 @@ class SelectableParticipant extends React.Component {
     id: PropTypes.string,
     name: PropTypes.string,
     image: PropTypes.string,
+    participant: participantPropType,
   };
 
   render() {
