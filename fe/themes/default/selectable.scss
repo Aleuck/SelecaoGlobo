@@ -4,19 +4,30 @@
 .selectable {
   display: inline-block;
   padding: 0;
+  position: relative;
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 1mm inset color('secondary');
   }
 
-  &--selected {
-    outline: 1mm solid color('primary');
+  &:focus::before {
+    border: 5px solid #ff9a0066;
+  }
 
-    &:focus {
-      box-shadow: 0 0 1mm inset color('secondary');
-      outline: 1mm solid color('primary');
-    }
+  &--selected::before,
+  &--selected:focus::before {
+    border: 5px solid color('primary');
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
   }
 
   &__input {

@@ -2,22 +2,23 @@
 
 .page {
   font-family: Raleway, sans-serif;
-  font-size: 3mm;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
+  background-color: color('white');
+  color: color('text');
 
-  h1,
-  h2 {
+  h1, h2, h3, h4, h5, h6 {
+    color: color('text-strong');
     font-family: Raleway, sans-serif;
     font-weight: 300;
+    text-transform: uppercase;
   }
 
   &__header {
     text-align: center;
-    text-transform: uppercase;
   }
 
   &__content {
@@ -26,5 +27,6 @@
 
   &__footer {
     text-align: center;
+    color: color('text');
   }
 }

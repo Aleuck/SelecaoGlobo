@@ -6,6 +6,8 @@ $colors: (
   'lighter-gray': #f5f5f5,
   'light-gray': #eaeaea,
   'gray': #d6d6d6,
+  'text': #656565,
+  'text-strong': #363636,
 );
 
 @function color($colorName) {

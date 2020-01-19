@@ -1,5 +1,29 @@
 @import './config';
 
 .participant {
-  background: #f00;
+  text-align: left;
+  width: 280px;
+  flex-shrink: 0;
+  margin: 0 0 20px;
+
+  &__img {
+    display: block;
+    width: 280px;
+    height: 290px;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid color('gray');
+  }
+
+  &__text {
+    margin: 0;
+    font-size: .7em;
+    line-height: 1.5em;
+  }
+}
+
+h4.participant__name {
+  margin: 0 0 5px;
+  text-transform: none;
+  font-weight: 700;
 }

@@ -2,14 +2,26 @@
 
 // Component: ModalHeader
 .modalHeader {
-  h2 {
-    text-transform: uppercase;
-    margin: 3mm;
+  h2, h3 {
+    margin: 0;
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin: 20px 15px 10px;
+  }
+
+  &__title,
+  &__icon {
+    margin: 0 5px;
   }
 
   &__separator {
     background-image: url('/images/bg-dotted.png');
-    height: 3mm;
-    margin: 0 4mm;
+    height: 10px;
+    margin: 0 20px 30PX;
   }
 }

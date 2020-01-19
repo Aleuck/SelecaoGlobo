@@ -2,10 +2,14 @@
 
 // Component: Modal
 .modal {
-  border: 1.1mm solid color('light-gray');
-  border-radius: 1mm;
-  width: 130mm;
+  border: 6px solid color('light-gray');
+  border-radius: 5px;
+  width: 630px;
   max-width: 85vw;
-  min-width: 30mm;
   margin: 0 auto;
+
+  &__wrapper {
+    border: 1px solid color('gray');
+    border-radius: 2px;
+  }
 }
