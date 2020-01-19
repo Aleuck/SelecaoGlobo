@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 
 /** Participant propTypes model */
-const propTypes = {
+const propType = PropTypes.shape({
   id: PropTypes.string,
   name: PropTypes.string,
   image: PropTypes.string,
   callNumber: PropTypes.string,
   smsNumber: PropTypes.string,
-};
+});
 
-export { propTypes };
+export { propType };
