@@ -1,5 +1,6 @@
 {
-  "host": "paredao-bbb-be-app.feathersjs.com",
+  "host": "localhost",
   "port": "PORT",
+  "recaptchaSecretKey": "RECAPTCHA_SECRET_KEY",
   "mysql": "DATABASE_URL"
 }

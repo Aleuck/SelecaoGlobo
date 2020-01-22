@@ -24,9 +24,14 @@
       "expiresIn": "1d"
     },
     "local": {
-      "usernameField": "email",
+      "usernameField": "username",
       "passwordField": "password"
     }
   },
-  "mysql": "mysql://paredao_bbb:p4r3d40_bbb_aleuck!@localhost:3306/paredao_bbb"
+  "recaptchaSecretKey": "6Lc1bdAUAAAAAK4aT--H3fOi1iYs99EGihZnxmJf",
+  "mysql": "mysql://paredao_bbb:p4r3d40_bbb_aleuck!@localhost:3306/paredao_bbb",
+  "defaultUser": {
+    "username": "admin",
+    "password": "selecaoglobo"
+  }
 }
