@@ -54,4 +54,13 @@ app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);
 
+// Create default user
+app.service('users').create(app.get('defaultUser'))
+  .then(() => {
+    logger.info('Default user created.');
+  })
+  .catch(() => {
+    // Default user already exists
+  });
+
 module.exports = app;
