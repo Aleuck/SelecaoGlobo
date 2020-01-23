@@ -92,3 +92,35 @@ Pensei em utilizar MaterialUI, mas com isso eu acabaria não utilizando muito me
 
 Criei um componente *Selectable* que serve para fazer seu conteúdo ser selecinável (como um *checkbox* ou *radio*).
 Tive o cuidado para que seja acessivel usando também o teclado (obter foco com *tabs* e selecionar com espaço ou *Enter*).
+
+## 2020-01-17 - Sexta
+
+Para aceitar apenas votos de pessoas, e não de máquinas, usarei o ReCAPTCHA.
+Usei o modo invisível dele para não quebrar o layout.
+
+## 2020-01-18 - Sábado
+
+## 2020-01-19 - Domingo
+
+
+## 2020-01-20 - Segunda
+
+
+## 2020-01-21 - Terça
+
+### Estrutura do Banco de Dados
+
+Definida a estrutura do banco de dados.
+![DatabaseStructure](database_structure.png)
+
+### Performance do Banco de Dados
+
+Imagino que um insert por voto não alcance a performance desejada.
+
+Considerei como alternativas inserir os votos em um arquivo intermediário (csv, um json por linha etc.), mas o risco de corromper dados seria grande.
+
+Se for o caso, untilizarei uma fila em memória de votos que seria consumida em intervalos constantes, inserindo vários votos em uma única operação. Para isso, o NeDB como banco de dados *in-memory* pode ser interessante.
+
+## 2020-01-22 - Quarta
+
+
