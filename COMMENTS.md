@@ -102,6 +102,11 @@ Usei o modo invisível dele para não quebrar o layout.
 
 ## 2020-01-19 - Domingo
 
+### Escopo de css por componente
+
+Estava utilizando um *CSS* para os estilos de todos os componentes, em uma definição de tema. Essa solução permite aninhar temas, por ter um escopo de classes por tema. Mas isso não protege contra colisões de nome de classes entre componentes.
+
+Separei o CSS em um arquivo por componente, e exportei os modulos CSS em chaves/*namespaces* diferentes, evitando colisões de nomes de classes.
 
 ## 2020-01-20 - Segunda
 
@@ -113,14 +118,18 @@ Usei o modo invisível dele para não quebrar o layout.
 Definida a estrutura do banco de dados.
 ![DatabaseStructure](database_structure.png)
 
+
 ### Performance do Banco de Dados
 
-Imagino que um insert por voto não alcance a performance desejada.
+Imagino que um insert por voto não alcance a performance desejada. Principalmente por conta da atualização dos índices. Alternativas possíveis seriam: inserir os votos em um arquivo intermediário (csv, um json por linha etc.), mas o risco de corromper dados seria grande;ou inserir em uma tabela intermediária sem índices e inserir os dados na tabela "oficial" em intervalos, mas não acho que seria suficiente.
 
-Considerei como alternativas inserir os votos em um arquivo intermediário (csv, um json por linha etc.), mas o risco de corromper dados seria grande.
+Minha primeira opção para contornar o problema seria usar uma fila de votos em memória, que seria consumida em intervalos constantes, inserindo vários votos com um único *insert*. Para isso, o *NeDB* como banco de dados *in-memory* pode ser interessante. 
 
-Se for o caso, untilizarei uma fila em memória de votos que seria consumida em intervalos constantes, inserindo vários votos em uma única operação. Para isso, o NeDB como banco de dados *in-memory* pode ser interessante.
 
 ## 2020-01-22 - Quarta
 
+### Transporte Cliente/Servidor
 
+Para usuários comuns, na página de votação. A comunicação com o servidor será por HTTP(S) (REST). Utilizar transporte baseado em conexão (websockets) seria muito custoso.
+
+Para usuários do *Dashboard Adminsitrativo*. Será usado *web-sockets*. Assim grande quantidade de mensagens (votos) podem ser em tempo real uma conexão persistente. Imagino que não cause muito *overhead*, mas migrarei para HTTP se necessário.
