@@ -132,4 +132,4 @@ Minha primeira opção para contornar o problema seria usar uma fila de votos em
 
 Para usuários comuns, na página de votação. A comunicação com o servidor será por HTTP(S) (REST). Utilizar transporte baseado em conexão (websockets) seria muito custoso.
 
-Para usuários do *Dashboard Adminsitrativo*. Será usado *web-sockets*. Assim grande quantidade de mensagens (votos) podem ser em tempo real uma conexão persistente. Imagino que não cause muito *overhead*, mas migrarei para HTTP se necessário.
+Para usuários do *Dashboard Adminsitrativo*. Será usado *web-sockets*. Assim grande quantidade de mensagens (votos) podem ser recebidas em tempo real em uma conexão persistente. Imagino que não cause muito *overhead*, mas migrarei para HTTP se necessário.
