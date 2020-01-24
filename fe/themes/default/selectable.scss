@@ -5,24 +5,22 @@
   display: inline-block;
   padding: 0;
   position: relative;
+  overflow: hidden;
 
   &:focus {
     outline: none;
   }
 
   &:focus::before {
-    border: 5px solid #ff9a0066;
-  }
-
-  &--selected::before,
-  &--selected:focus::before {
-    border: 5px solid color('primary');
+    border: 6px solid rgba(color('secondary'), $alpha: 0.4);
   }
 
   &::before {
     content: '';
     display: block;
     border-radius: 3px;
+    border: 0 solid rgba(255,255,255,0);
+    transition: border ease 500ms;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -30,7 +28,27 @@
     left: 0;
   }
 
+  &--selected::before,
+  &--selected:focus::before {
+    border: 6px solid color('secondary');
+    animation: fadingball 1s ease;
+  }
+
   &__input {
     display: none;
+  }
+}
+
+@keyframes fadingball {
+  from {
+    background-color: rgba(color('secondary'), 0);
+  }
+
+  10% {
+    background-color: rgba(color('secondary'), 0.5);
+  }
+
+  to {
+    background-color: rgba(color('secondary'), 0);
   }
 }

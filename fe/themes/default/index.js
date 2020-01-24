@@ -1,9 +1,9 @@
-export{ default as layout } from './layout.scss';
-export{ default as button } from './button.scss';
-export{ default as modal } from './modal.scss';
-export{ default as selectable } from './selectable.scss';
-export{ default as selectableParticipant } from './participant.scss';
-export{ default as participantsSelect } from './participants-select.scss';
-export{ default as modalHeader } from './modal-header.scss';
-export{ default as modalFooter } from './modal-footer.scss';
-export{ default as icons } from './icons.scss';
+export { default as layout } from './layout.scss';
+export { default as button } from './button.scss';
+export { default as modal } from './modal.scss';
+export { default as selectable } from './selectable.scss';
+export { default as selectableParticipant } from './participant.scss';
+export { default as participantsSelect } from './participants-select.scss';
+export { default as modalHeader } from './modal-header.scss';
+export { default as modalFooter } from './modal-footer.scss';
+export { default as icons } from './icons.scss';
