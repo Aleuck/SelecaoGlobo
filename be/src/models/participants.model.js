@@ -17,11 +17,7 @@ module.exports = function (app) {
       allowNull: false
     },
     image: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    callNumber: {
-      type: DataTypes.STRING,
+      type: DataTypes.BLOB,
       allowNull: false
     },
   }, {

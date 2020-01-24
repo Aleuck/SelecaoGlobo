@@ -8,7 +8,15 @@ module.exports = function (app) {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV,
       primaryKey: true
-    }
+    },
+    callNumber: {
+      type: DataTypes.STRING(16),
+      allowNull: false
+    },
+    smsNumber: {
+      type: DataTypes.STRING(16),
+      allowNull: false
+    },
   }, {
     timestamps: false,
     hooks: {

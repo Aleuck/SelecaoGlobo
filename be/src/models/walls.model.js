@@ -4,6 +4,10 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const walls = sequelizeClient.define('walls', {
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     startsAt: {
       type: DataTypes.DATE,
       allowNull: false
