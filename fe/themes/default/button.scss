@@ -11,14 +11,14 @@
   padding: 8px 20px;
   font-weight: 700;
   line-height: 130%;
-  transition: all ease 500ms;
+  transition: all ease 300ms;
 
   &:active {
     background: color('primary') linear-gradient(0, #0b95fd, #006cc2);
   }
 
-  &:focus {
-    box-shadow: inset 0 0 5px 1px rgba(color('secondary'), $alpha: 1.0);
+  &:focus-visible {
+    box-shadow: 0 0 3px 2px rgba(color('secondary'), $alpha: 1.0);
   }
 
   &:disabled {
