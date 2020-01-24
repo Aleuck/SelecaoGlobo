@@ -8,6 +8,7 @@ import auth from '@feathersjs/authentication-client';
 import '../../themes/base-css';
 import Layout from '../../components/layouts/default';
 import Button from '../../components/button';
+import TextInput from '../../components/text-input';
 
 const AUTH_STATES = {
   unauthenticated: 'unauthenticated',
@@ -93,7 +94,7 @@ class Admin extends React.Component {
       <Layout pageTitle="Paredão BBB - Dashboard">
         {this.state.authState}
         <form onSubmit={this.loginSubmitHandler}>
-          <input
+          <TextInput
             name="username"
             placeholder="Username"
             value={this.state.username}
@@ -101,7 +102,7 @@ class Admin extends React.Component {
             type="text"
             disabled={this.state.authState !== AUTH_STATES.unauthenticated}
           />
-          <input
+          <TextInput
             name="password"
             placeholder="Password"
             value={this.state.password}

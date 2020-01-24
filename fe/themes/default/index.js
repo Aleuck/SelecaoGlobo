@@ -7,3 +7,4 @@ export { default as participantsSelect } from './participants-select.scss';
 export { default as modalHeader } from './modal-header.scss';
 export { default as modalFooter } from './modal-footer.scss';
 export { default as icons } from './icons.scss';
+export { default as textInput } from './text-input.scss';
