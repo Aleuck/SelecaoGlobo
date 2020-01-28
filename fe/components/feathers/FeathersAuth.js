@@ -51,6 +51,7 @@ class FeathersAuth extends React.Component {
   loginSubmitHandler = loginData => {
     this.setState({
       authState: AUTH_STATES.checking,
+      errorMessage: null,
     });
     this.props.client.authenticate({
       'strategy': 'local',
@@ -65,6 +66,7 @@ class FeathersAuth extends React.Component {
       console.log('authentication failed', reason);
       this.setState({
         authState: AUTH_STATES.unauthenticated,
+        errorMessage: reason.message,
       });
     })
   };
@@ -78,17 +80,15 @@ class FeathersAuth extends React.Component {
   }
 
   render() {
-    if (this.state.authState === AUTH_STATES.checking) {
-      return this.props.loadingScreen || 'loading';
-    }
-    else if (this.state.authState === AUTH_STATES.unauthenticated) {
-      return this.props.renderLogin(this.loginSubmitHandler);
-    }
-    else if (this.state.authState === AUTH_STATES.authenticated) {
+    if (this.state.authState === AUTH_STATES.authenticated) {
       return this.props.children(this.logoutHandler, this.state.user);
     }
     else {
-      return "invalid authState";
+      return this.props.renderLogin({
+        onSubmit: this.loginSubmitHandler,
+        errorMessage: this.state.errorMessage,
+        disabled: this.state.authState === AUTH_STATES.checking,
+      });
     }
   }
 }

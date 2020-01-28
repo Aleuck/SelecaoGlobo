@@ -8,7 +8,7 @@ import ThemeContext from '../../../themes/ThemeContext';
 /**
  * Default layout to render pages.
  * @param {Object} props - Component properties
- * @param {string} props.pageTitle - Title of the page being rendered with this layout
+ * @param {node} props.header - Page header
  */
 class DefaultLayout extends Component {
   static contextType = ThemeContext;
@@ -22,7 +22,7 @@ class DefaultLayout extends Component {
           <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&amp;display=swap" rel="stylesheet" />
         </Head>
 
-        <Header pageTitle={this.props.pageTitle} />
+        <Header>{this.props.header}</Header>
 
         <div className={classes.page__content}>
           {this.props.children}
@@ -35,7 +35,7 @@ class DefaultLayout extends Component {
 }
 
 DefaultLayout.propTypes = {
-  pageTitle: PropTypes.string,
+  header: PropTypes.node,
   children: PropTypes.node,
 };
 

@@ -5,7 +5,7 @@ import ThemeContext from '../../../../themes/ThemeContext';
 /**
  * Default layout's header component.
  * @param {Object} props - Component props.
- * @param {string} props.pageTitle - Title of the current page
+ * @param {node} props.children - Header content
  */
 class Header extends Component {
   static contextType = ThemeContext;
@@ -13,13 +13,13 @@ class Header extends Component {
     const classes = this.context.layout;
     return (
       <header className={classes.page__header}>
-        <h1>{ this.props.pageTitle }</h1>
+        {this.props.children}
       </header>
     );
   }
 }
 Header.propTypes = {
-  pageTitle: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default Header;

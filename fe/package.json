@@ -24,13 +24,18 @@
     "eslint": "eslint ./"
   },
   "dependencies": {
+    "@date-io/luxon": "1.x",
     "@feathersjs/authentication-client": "^4.5.0",
     "@feathersjs/feathers": "^4.5.0",
     "@feathersjs/socketio-client": "^4.5.0",
+    "@material-ui/core": "^4.9.0",
+    "@material-ui/lab": "^4.0.0-alpha.40",
+    "@material-ui/pickers": "^3.2.9",
     "@zeit/next-sass": "^1.0.1",
     "autoprefixer": "^9.7.4",
     "classnames": "^2.2.6",
     "isomorphic-fetch": "^2.2.1",
+    "luxon": "^1.22.0",
     "next": "^9.1.7",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
