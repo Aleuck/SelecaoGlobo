@@ -9,38 +9,64 @@ import ThemeContext from '../../themes/ThemeContext';
  * @param {React.FormEvent} event
  */
 
-/**
- * Makes content selectable.
- * @param {Object} props - Component properties.
- * @param {string} props.id - Input id, also used as value.
- * @param {string} props.name - Input name.
- * @param {boolean} [props.selected=false] - Controls selected state.
- * @param {number} [props.tabIndex=0]
- * @param {changeEvent} props.onChange - Handler for changes on input.
- * @listens changeEvent
- */
+/** Class represents a selectable react component. */
 class Selectable extends React.Component {
   static contextType = ThemeContext;
-
   static propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     selected: PropTypes.bool,
     tabIndex: PropTypes.number,
+    role: PropTypes.string,
+    ariaLabel: PropTypes.string,
     onChange: PropTypes.func.isRequired,
+    onKeyDown: PropTypes.func,
     children: PropTypes.node,
   };
 
+  /**
+   * Creates selectable Component
+   * @param {Object} props - Component properties.
+   * @param {string} props.id - Input id, also used as value.
+   * @param {string} props.name - Input name.
+   * @param {boolean} [props.selected=false] - Controls selected state.
+   * @param {number} [props.tabIndex=0] - Element's tab index.
+   * @param {string} [props.role=checkbox] - Element's role.
+   * @param {string} [props.ariaLabel=checkbox] - Element's aria-label.
+   * @param {changeEvent} props.onChange - Handler for changes on input.
+   * @listens changeEvent
+   */
+  constructor(props) {
+    super(props);
+    this.labelRef = React.createRef();
+  }
+
   keyDownHandler = event => {
     if (typeof this.props.onChange === 'function') {
-      if ([' ', 'Enter'].includes(event.key)) {
+      if ([' '].includes(event.key)) {
         this.props.onChange();
       }
     }
+    if (typeof this.props.onKeyDown === 'function') {
+      this.props.onKeyDown(event);
+    }
   };
 
+  focus() {
+    this.labelRef.current.focus();
+  }
+
   render() {
-    const { id, name, selected, tabIndex, onChange, children} = this.props;
+    const {
+      id,
+      name,
+      selected,
+      tabIndex,
+      onChange,
+      children,
+      ariaLabel,
+      role,
+    } = this.props;
     const classes = this.context.selectable
     return (
       <React.Fragment>
@@ -52,6 +78,9 @@ class Selectable extends React.Component {
           )}
           tabIndex={tabIndex || 0} // Makes it keyboard reachable (via tab)
           onKeyDown={this.keyDownHandler} // And selectable with 'space' or 'Enter' keys
+          ref={this.labelRef}
+          aria-label={ariaLabel}
+          role={role || "checkbox"}
         >
           {children}
         </label>

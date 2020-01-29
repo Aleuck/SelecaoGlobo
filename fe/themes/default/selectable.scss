@@ -5,11 +5,6 @@
   display: inline-block;
   padding: 0;
   position: relative;
-  overflow: hidden;
-
-  &:focus {
-    outline: none;
-  }
 
   &::before {
     content: '';
@@ -24,7 +19,11 @@
     left: 0;
   }
 
-  &:focus-visible::before {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus::before {
     border: 6px solid rgba(color('secondary'), $alpha: 0.3);
   }
 

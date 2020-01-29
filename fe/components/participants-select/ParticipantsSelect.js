@@ -18,30 +18,87 @@ class ParticipantsSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.selectablesRefs = [];
   }
 
-  handleSelectableChange = participantId => () => {
-    if (this.state.selectedParticipant !== participantId) {
+  handleSelectableChange = ({id, index}) => () => {
+    if (this.state.selectedParticipant !== id) {
       this.setState({
-        selectedParticipant: participantId,
+        selectedParticipant: id,
+        selectedParticipantIndex: index,
       });
-      this.props.onChange(participantId);
+      this.props.onChange(id);
     }
   }
+
+  handleKeyDown = event => {
+    const keyActions = {
+      ArrowUp: this.selectPrevious,
+      ArrowLeft: this.selectPrevious,
+      ArrowDown: this.selectNext,
+      ArrowRight: this.selectNext,
+    }
+    const action = keyActions[event.key];
+    if (typeof action === 'function') {
+      action();
+      event.preventDefault();
+    }
+  };
+
+  selectNext = () => {
+    const { participants } = this.props;
+    const currentIndex = this.state.selectedParticipantIndex || 0;
+    let next = currentIndex + 1;
+
+    if (next >= participants.length) {
+      next = 0;
+    }
+
+    this.selectablesRefs[next].focus();
+    this.setState({
+      selectedParticipant: participants[next].id,
+      selectedParticipantIndex: next,
+    });
+  };
+
+  selectPrevious = () => {
+    const { participants } = this.props;
+    const currentIndex = this.state.selectedParticipantIndex || 0;
+    let previous = currentIndex - 1;
+
+    if (previous < 0) {
+      previous = participants.length - 1;
+    }
+
+    this.selectablesRefs[previous].focus();
+    this.setState({
+      selectedParticipant: participants[previous].id,
+      selectedParticipantIndex: previous,
+    });
+  };
 
   render() {
     const {
       participants,
     } = this.props;
     const classes = this.context.participantsSelect
+    console.log('state', this.state);
     return (
       <div className={classes['participants-select']}>
-        {participants.map(participant => (
+        {participants.map((participant, index) => (
           <SelectableParticipant
             key={participant.id}
-            onChange={this.handleSelectableChange(participant.id)}
-            selected={participant.id === this.state.selectedParticipant}
+            onKeyDown={this.handleKeyDown}
+            onChange={this.handleSelectableChange({
+              id: participant.id,
+              index
+            })}
+            selected={index === this.state.selectedParticipantIndex}
+            tabIndex={index === (this.state.selectedParticipantIndex || 0) ? 0 : -1}
             participant={participant}
+            ref={selectable => {
+              this.selectablesRefs[index] = selectable;
+            }}
           />
         ))}
       </div>
