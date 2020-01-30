@@ -64,6 +64,10 @@ class Login extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const {
+      username,
+      password,
+    } = this.state;
     return (
       <Layout>
         <Container maxWidth="xs">
@@ -76,7 +80,7 @@ class Login extends React.Component {
                   id="username"
                   color="primary"
                   label="Username"
-                  value={this.state.username}
+                  value={username}
                   onChange={this.inputChangeHandler('username')}
                   disabled={this.props.disabled}
                   className={classes.textField}
@@ -87,7 +91,7 @@ class Login extends React.Component {
                   id="password"
                   color="primary"
                   label="Password"
-                  value={this.state.password}
+                  value={password}
                   onChange={this.inputChangeHandler('password')}
                   disabled={this.props.disabled}
                   className={classes.textField}
@@ -99,7 +103,7 @@ class Login extends React.Component {
                   size="large"
                   variant="contained"
                   color="primary"
-                  disabled={this.props.disabled}
+                  disabled={this.props.disabled || !(password && username)}
                   onClick={this.loginSubmitHandler}
                   type="submit"
                 >

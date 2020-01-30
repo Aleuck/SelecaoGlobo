@@ -81,7 +81,10 @@ class FeathersAuth extends React.Component {
 
   render() {
     if (this.state.authState === AUTH_STATES.authenticated) {
-      return this.props.children(this.logoutHandler, this.state.user);
+      return this.props.children({
+        logout: this.logoutHandler,
+        user: this.state.user,
+      });
     }
     else {
       return this.props.renderLogin({

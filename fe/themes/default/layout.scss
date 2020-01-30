@@ -11,7 +11,6 @@
   color: color('text');
 
   h1, h2, h3, h4, h5, h6 {
-    color: color('text-strong');
     font-family: Raleway, sans-serif;
     font-weight: 300;
     text-transform: uppercase;
@@ -22,7 +21,19 @@
   }
 
   &__content {
+    color: color('text');
     text-align: center;
+
+    &--full-height {
+      flex-grow: 1;
+    }
+
+    &--flex-row {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: flex-start;
+    }
   }
 
   &__footer {

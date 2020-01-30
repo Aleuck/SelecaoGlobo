@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Header from './header';
 import Footer from './footer';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Component } from 'react';
 import ThemeContext from '../../../themes/ThemeContext';
 
@@ -24,7 +25,11 @@ class DefaultLayout extends Component {
 
         <Header>{this.props.header}</Header>
 
-        <div className={classes.page__content}>
+        <div className={classNames(
+          classes.page__content,
+          { [classes['page__content--full-height']]: this.props.fullHeight },
+          { [classes['page__content--flex-row']]: this.props.flexRow },
+        )}>
           {this.props.children}
         </div>
 
