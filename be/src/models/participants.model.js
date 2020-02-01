@@ -13,11 +13,11 @@ module.exports = function (app) {
       defaultValue: DataTypes.UUIDV4
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
       allowNull: false
     },
     image: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING(64),
       allowNull: false
     },
   }, {
