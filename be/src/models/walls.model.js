@@ -4,7 +4,7 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const walls = sequelizeClient.define('walls', {
-    description: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false
     },
