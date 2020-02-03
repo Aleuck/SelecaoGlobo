@@ -42,7 +42,7 @@ class SelectableParticipant extends React.Component {
       onKeyDown,
       tabIndex,
     } = this.props;
-    const classes = this.context.selectableParticipant
+    const classes = this.context.selectableParticipant;
 
     return (
       <div className={classes.participant}>
