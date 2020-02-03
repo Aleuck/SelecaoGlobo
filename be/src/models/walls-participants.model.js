@@ -6,7 +6,7 @@ module.exports = function (app) {
   const wallsParticipants = sequelizeClient.define('walls_participants', {
     id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
     callNumber: {
