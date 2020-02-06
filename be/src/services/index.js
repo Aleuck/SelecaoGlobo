@@ -5,6 +5,7 @@ const walls = require('./walls/walls.service.js');
 const votes = require('./votes/votes.service.js');
 const wallsParticipants = require('./walls-participants/walls-participants.service.js');
 const images = require('./images/images.service.js');
+const currentWall = require('./current-wall/current-wall.service.js');
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
@@ -14,4 +15,5 @@ module.exports = function (app) {
   app.configure(votes);
   app.configure(wallsParticipants);
   app.configure(images);
+  app.configure(currentWall);
 };

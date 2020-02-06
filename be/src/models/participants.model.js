@@ -17,7 +17,7 @@ module.exports = function (app) {
       allowNull: false
     },
     image: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING(128),
       allowNull: false
     },
   }, {

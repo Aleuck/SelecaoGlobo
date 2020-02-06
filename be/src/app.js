@@ -87,7 +87,7 @@ app.on('sequelizeSync', () => {
             .then(participants => {
               logger.info(' - wall');
               const startsAt = new Date();
-              startsAt.setUTCHours(23, 0, 0, 0);
+              startsAt.setUTCHours(3, 0, 0, 0);
               const endsAt = new Date();
               endsAt.setUTCHours(3, 0, 0, 0);
               endsAt.setUTCDate(startsAt.getUTCDate() + 1);
