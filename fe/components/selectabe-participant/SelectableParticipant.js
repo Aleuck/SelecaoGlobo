@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ThemeContext from '../../themes/ThemeContext';
 import Selectable from '../selectable';
 import { propType as participantPropType } from '../../models/participant';
+import fetch from 'isomorphic-fetch';
 
 /** Class represents a selectable participant */
 class SelectableParticipant extends React.Component {
@@ -28,10 +29,34 @@ class SelectableParticipant extends React.Component {
   constructor(props) {
     super(props);
     this.selectableRef = React.createRef();
+    this.state = {};
   }
 
   focus() {
     this.selectableRef.current.focus();
+  }
+
+  loadImage() {
+    const { participant } = this.props;
+    if (participant.image) {
+      fetch(`${process.env.SERVER_URL}/images/${participant.image}`)
+        .then(respone => respone.json())
+        .then(imageData => {
+          this.setState({
+            imageUri: imageData.uri,
+          });
+        })
+    }
+  }
+
+  componentDidMount() {
+    this.loadImage();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.participant.image !== this.props.participant.image) {
+      this.loadImage();
+    }
   }
 
   render() {
@@ -60,7 +85,7 @@ class SelectableParticipant extends React.Component {
         >
           <img
             className={classes.participant__img}
-            src={participant.image}
+            src={this.state.imageUri}
             alt={participant.name}
           />
         </Selectable>
