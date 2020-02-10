@@ -26,8 +26,19 @@ module.exports = function (app) {
 
   // eslint-disable-next-line no-unused-vars
   seasons.associate = function (models) {
-    models.seasons.hasMany(models.participants);
-    models.seasons.hasMany(models.walls);
+    models.seasons.hasMany(models.walls, {
+      foreignKey: {
+        name: 'seasonId',
+        allowNull: false,
+      },
+    });
+
+    models.seasons.hasMany(models.participants, {
+      foreignKey: {
+        name: 'seasonId',
+        allowNull: false,
+      },
+    });
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };

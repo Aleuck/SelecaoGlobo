@@ -13,8 +13,8 @@ module.exports = function (app) {
     }
   });
 
+  // eslint-disable-next-line no-unused-vars
   votes.associate = function (models) {
-    models.votes.belongsTo(models.walls_participants);
   };
 
   return votes;

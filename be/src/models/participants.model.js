@@ -29,8 +29,13 @@ module.exports = function (app) {
   });
 
   participants.associate = function (models) {
-    models.participants.belongsTo(models.seasons);
-    models.participants.belongsToMany(models.walls, { through: models.walls_participants });
+    models.participants.belongsToMany(models.walls, {
+      through: models.walls_participants,
+      foreignKey: {
+        name: 'participantId',
+        allowNull: false,
+      },
+    });
   };
 
   return participants;

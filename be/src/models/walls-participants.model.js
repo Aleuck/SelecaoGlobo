@@ -27,7 +27,12 @@ module.exports = function (app) {
   });
 
   wallsParticipants.associate = function (models) {
-    models.walls_participants.hasMany(models.votes);
+    models.walls_participants.hasMany(models.votes, {
+      foreignKey: {
+        name: 'vote',
+        allowNull: false,
+      },
+    });
   };
 
   return wallsParticipants;
