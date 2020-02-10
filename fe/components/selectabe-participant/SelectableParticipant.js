@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import ThemeContext from '../../themes/ThemeContext';
 import Selectable from '../selectable';
 import { propType as participantPropType } from '../../models/participant';
-import fetch from 'isomorphic-fetch';
-
+import ParticipantPicture from '../participant-picture'
 /** Class represents a selectable participant */
 class SelectableParticipant extends React.Component {
   static contextType = ThemeContext;
@@ -36,29 +35,6 @@ class SelectableParticipant extends React.Component {
     this.selectableRef.current.focus();
   }
 
-  loadImage() {
-    const { participant } = this.props;
-    if (participant.image) {
-      fetch(`${process.env.SERVER_URL}/images/${participant.image}`)
-        .then(respone => respone.json())
-        .then(imageData => {
-          this.setState({
-            imageUri: imageData.uri,
-          });
-        })
-    }
-  }
-
-  componentDidMount() {
-    this.loadImage();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.participant.image !== this.props.participant.image) {
-      this.loadImage();
-    }
-  }
-
   render() {
     const {
       participant,
@@ -83,10 +59,9 @@ class SelectableParticipant extends React.Component {
           role="radio"
           ref={this.selectableRef}
         >
-          <img
+          <ParticipantPicture
+            participant={participant}
             className={classes.participant__img}
-            src={this.state.imageUri}
-            alt={participant.name}
           />
         </Selectable>
         <p className={classes.participant__text}>
