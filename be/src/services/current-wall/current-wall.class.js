@@ -1,4 +1,4 @@
-
+const { Unavailable } = require('@feathersjs/errors');
 /* eslint-disable no-unused-vars */
 const cache = {
   walls: [],
@@ -8,29 +8,34 @@ exports.CurrentWall = class CurrentWall {
   constructor (options) {
     this.options = options || {};
     this.app = options.app;
+
+    setInterval(() => {
+      if (cache.votes.length > 0) {
+        const start = Date.now();
+        this.app.service('votes').create(cache.votes);
+        cache.votes = [];
+        console.log('duration:', Date.now() - start);
+      }
+    }, 30 * 1000);
   }
 
-  async create(params) {
-    console.dir(params);
-    return {};
-  }
-
-  find(params) {
+  getCurrentWall() {
     const { walls } = cache;
     // lets keep the ongoing wall in cache
     if (
-      walls.length > 0 //&&
+      walls.length > 0
       // walls[0].dataValues.endsAt > Date.now()
     ) {
-      console.log('from cache');
       return Promise.resolve(walls);
     } else {
-      console.log('from database');
       cache.walls = [];
       return this.app.service('walls').find({
         query: {
           startsAt: { $lte: new Date().toISOString() },
           // endsAt: { $gt: new Date().toISOString() },
+          $sort: {
+            startsAt: -1, // descending
+          },
           $limit: 1,
         },
       })
@@ -39,5 +44,37 @@ exports.CurrentWall = class CurrentWall {
           return result;
         });
     }
+  }
+
+  async create(data, params) {
+    // this.checkCaptcha(data)
+    return Promise.resolve()
+      .then(() => this.getCurrentWall())
+      .then(currentWall => {
+        if (
+          currentWall[0] &&
+          currentWall[0].dataValues.endsAt > Date.now()
+        ) {
+          if (currentWall[0].dataValues.participants.find(
+            (participant) => participant.walls_participants.id === data.vote
+          )) {
+            console.log('enqueued');
+            cache.votes.push({
+              vote: data.vote,
+              createdAt: new Date(),
+            });
+            return {
+              success: true,
+            };
+          }
+        }
+        else {
+          throw new Unavailable('Nenhum parerdão em andamento.');
+        }
+      });
+  }
+
+  find(params) {
+    return this.getCurrentWall();
   }
 };
