@@ -1,10 +1,15 @@
 const { Unavailable } = require('@feathersjs/errors');
 const { Op } = require('sequelize');
 /* eslint-disable no-unused-vars */
+
 const cache = {
   walls: [], // cache wall data so we don't need to query database as often
   votes: [], // will hold votes before inserting them into database in bulk
 };
+
+// wall results are arbitrarily available for 7 days after wall ends.
+const availableDurationAfterWallEnds = 1000 * 60 * 60 * 24 * 7;
+
 exports.CurrentWall = class CurrentWall {
   constructor (options) {
     this.options = options || {};
@@ -17,7 +22,7 @@ exports.CurrentWall = class CurrentWall {
         cache.votes = [];
         console.log('duration:', Date.now() - start);
       }
-    }, 30 * 1000);
+    }, 10 * 1000);
   }
 
   normalizeWall(wall) {
@@ -40,8 +45,8 @@ exports.CurrentWall = class CurrentWall {
     const { walls } = cache;
     // lets keep the ongoing wall in cache
     if (
-      walls.length > 0
-      // walls[0].dataValues.endsAt > Date.now()
+      walls.length > 0 &&
+      walls[0].endsAt + (availableDurationAfterWallEnds) > Date.now()
     ) {
       return Promise.resolve(walls);
     } else {
@@ -49,7 +54,7 @@ exports.CurrentWall = class CurrentWall {
       return this.app.service('walls').find({
         query: {
           startsAt: { $lte: new Date().toISOString() },
-          // endsAt: { $gt: new Date().toISOString() },
+          endsAt: { $gt: new Date(Date.now() + (availableDurationAfterWallEnds)).toISOString() },
           $sort: {
             startsAt: -1, // descending
           },
@@ -65,13 +70,12 @@ exports.CurrentWall = class CurrentWall {
   }
 
   async create(data, params) {
-    // this.checkCaptcha(data)
     return Promise.resolve()
       .then(() => this.getCurrentWall())
       .then(currentWall => {
         if (
           currentWall[0] &&
-          currentWall[0].dataValues.endsAt > Date.now()
+          currentWall[0].endsAt > Date.now()
         ) {
           if (currentWall[0].participants.find(
             (participant) => participant.id === data.vote
