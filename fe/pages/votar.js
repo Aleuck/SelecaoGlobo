@@ -8,7 +8,7 @@ import Modal from '../components/modal';
 import ModalHeader from '../components/modal-header';
 import ModalFooter from '../components/modal-footer';
 import Button from '../components/button';
-import { WallIcon } from '../components/icons'
+import { WallIcon } from '../components/icons';
 import ParticipantsSelect from '../components/participants-select';
 
 const recaptchaRef = React.createRef();
@@ -27,15 +27,7 @@ class Votar extends React.Component {
       .then(([wallData]) => {
         if (wallData) {
           this.setState({
-            participants: wallData.participants.map(
-              ({ name, image, walls_participants }) => ({
-                id: walls_participants.id,
-                name,
-                image,
-                callNumber: walls_participants.callNumber,
-                smsNumber: walls_participants.smsNumber,
-              })
-            ),
+            participants: wallData.participants,
             state: 'loaded',
           });
         } else {

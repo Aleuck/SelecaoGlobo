@@ -1,8 +1,9 @@
 const { Unavailable } = require('@feathersjs/errors');
+const { Op } = require('sequelize');
 /* eslint-disable no-unused-vars */
 const cache = {
-  walls: [],
-  votes: [],
+  walls: [], // cache wall data so we don't need to query database as often
+  votes: [], // will hold votes before inserting them into database in bulk
 };
 exports.CurrentWall = class CurrentWall {
   constructor (options) {
@@ -17,6 +18,22 @@ exports.CurrentWall = class CurrentWall {
         console.log('duration:', Date.now() - start);
       }
     }, 30 * 1000);
+  }
+
+  normalizeWall(wall) {
+    const data = wall.dataValues;
+    console.log('data',data.participants[0].dataValues);
+    return {
+      startsAt: data.startsAt,
+      endsAt: data.endsAt,
+      participants: data.participants.map(p => ({
+        id: p.dataValues.walls_participants.dataValues.id,
+        name: p.dataValues.name,
+        image: p.dataValues.image,
+        callNumber: p.dataValues.walls_participants.dataValues.callNumber,
+        smsNumber: p.dataValues.walls_participants.dataValues.smsNumber,
+      }))
+    };
   }
 
   getCurrentWall() {
@@ -40,8 +57,9 @@ exports.CurrentWall = class CurrentWall {
         },
       })
         .then((result) => {
-          cache.walls = result;
-          return result;
+          const normalizedResult = result.map(this.normalizeWall);
+          cache.walls = normalizedResult;
+          return normalizedResult;
         });
     }
   }
@@ -55,10 +73,9 @@ exports.CurrentWall = class CurrentWall {
           currentWall[0] &&
           currentWall[0].dataValues.endsAt > Date.now()
         ) {
-          if (currentWall[0].dataValues.participants.find(
-            (participant) => participant.walls_participants.id === data.vote
+          if (currentWall[0].participants.find(
+            (participant) => participant.id === data.vote
           )) {
-            console.log('enqueued');
             cache.votes.push({
               vote: data.vote,
               createdAt: new Date(),
@@ -74,7 +91,35 @@ exports.CurrentWall = class CurrentWall {
       });
   }
 
+  // we will get cached wall data if possible
+  // but always live vote count
   find(params) {
-    return this.getCurrentWall();
+    return this.getCurrentWall()
+      .then(walls => {
+        const currentWall = walls[0];
+        if (currentWall) {
+          const Votes = this.app.service('votes').Model;
+
+          return Votes.count({
+            attributes: ['vote'],
+            group: 'vote',
+            where: {
+              vote: {
+                [Op.in]: currentWall.participants.map(
+                  p => p.id
+                )
+              }
+            },
+          }).then(votes => {
+            currentWall.participants.forEach((participant, index) => {
+              const voteCount = votes.find(v => participant.id === v.vote);
+              participant.votes = voteCount ? voteCount.count : 0;
+            });
+            return walls;
+          });
+        } else {
+          return walls;
+        }
+      });
   }
 };

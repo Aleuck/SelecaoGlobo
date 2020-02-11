@@ -23,15 +23,7 @@ class Votar extends React.Component {
       .then(([wallData]) => {
         if (wallData) {
           this.setState({
-            participants: wallData.participants.map(
-              ({ name, image, walls_participants }) => ({
-                id: walls_participants.id,
-                name,
-                image,
-                callNumber: walls_participants.callNumber,
-                smsNumber: walls_participants.smsNumber,
-              })
-            ),
+            participants: wallData.participants,
             state: 'loaded',
           });
         } else {
@@ -43,9 +35,7 @@ class Votar extends React.Component {
   }
   getData = () => {
     return fetch(`${process.env.SERVER_URL}/current-wall`)
-      .then(response => {
-        console.dir(response);
-      });
+      .then(response => response.json());
   };
   render() {
     const { participants, state } = this.state;
@@ -71,8 +61,7 @@ class Votar extends React.Component {
                   overflow: 'hidden',
                   margin: '0 -50px'
                 }}>
-                  <ParticipantPicture participant={participants[0]} />
-                  <ParticipantPicture participant={participants[1]} />
+                  {participants.map(p => <ParticipantPicture participant={p} key={p.id} />)}
                   <div style={{
                     position: 'absolute',
                     bottom: '-60px',
@@ -81,8 +70,8 @@ class Votar extends React.Component {
                   }}>
                     <DonutChart
                       radius={135}
-                      width={40}
-                      data={[980,1000]}
+                      width={45}
+                      data={participants.map(p => p.votes)}
                     />
                   </div>
                 </div>

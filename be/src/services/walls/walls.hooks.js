@@ -6,14 +6,16 @@ const includeParticipants = () => function (hook) {
   if (hook.params.provider !== undefined && hook.params.provider !== 'rest') {
     return Promise.resolve(hook);
   }
-  const model = hook.app.service('participants').Model;
+  const participantsModel = hook.app.service('participants').Model;
 
   // We don't want to publish participant's ID to the public. They will vote using walls-participants ID.
   const association = {
     include: [{
-      model,
+      model: participantsModel,
       attributes: ['name', 'image'],
-      through: { attributes: ['id', 'callNumber', 'smsNumber']}
+      through: {
+        attributes: ['id', 'callNumber', 'smsNumber'],
+      },
     }]
   };
 
