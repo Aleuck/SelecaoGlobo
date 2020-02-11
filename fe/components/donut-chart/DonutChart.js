@@ -45,6 +45,10 @@ class DonutChart extends React.Component {
       .append('g')
         .attr('transform', `translate(${radius},${radius})\nrotate(180)`);
 
+    svg.append('circle')
+      .attr('r', radius - width / 2)
+      .attr('fill', 'white');
+
 
     const arc = d3.arc()
       .innerRadius(radius)
@@ -53,12 +57,13 @@ class DonutChart extends React.Component {
     svg.selectAll('path')
       .data(arcs)
       .join('path')
-        .attr('fill', d => {console.log(d); return color(d.data.value);})
+        .attr('fill', d => color(d.data.value))
         .attr('stroke', 'white')
+        .attr('stroke-width', '2')
         .attr('d', arc)
     svg.append('g')
       .attr("font-family", "Raleway, sans-serif")
-      .attr("font-size", 20)
+      .attr("font-size", 22)
       .attr("text-anchor", "middle")
     .selectAll('text')
     .data(arcs)
@@ -67,10 +72,10 @@ class DonutChart extends React.Component {
         `rotate(${180 * (d.index ? d.startAngle + 0.3 : d.endAngle - 0.3)/Math.PI})`,
       ])
       .call(text => text.append("tspan")
-        .attr("y", `-${radius - 6 - width / 2}px`)
+        .attr("y", `-${radius - 7 - width / 2}px`)
         .attr("fill", "#ffffff")
         .attr("style", "text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.35);")
-        .attr("font-weight", "bold")
+        .attr("font-weight", "700")
         .text(d => d.data.name))
   };
 
