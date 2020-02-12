@@ -25,6 +25,7 @@
 
   &:focus::before {
     border: 6px solid rgba(color('secondary'), $alpha: 0.3);
+    box-shadow: 0 0 3px 1px color('secondary');
   }
 
   &--selected::before,
