@@ -32,20 +32,9 @@ class Results extends Component {
             <strong>Parabéns!</strong> Seu voto para <strong>{votedOn.name}</strong> foi enviado com sucesso.
           </p>
         )}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          position: 'relative',
-          overflow: 'hidden',
-          margin: '0 -50px'
-        }}>
+        <div className={classes.resultsInfo}>
           {participants.map(p => <ParticipantPicture participant={p} key={p.id} />)}
-          <div style={{
-            position: 'absolute',
-            bottom: '-60px',
-            width: '100%',
-            left: '0',
-          }}>
+          <div className={classes.donutChart}>
             {timeLeft && timeLeft > 0 ? (
               <div className={classes.timeLeft}>
                 <p>Faltam <span>{this.formatTime(timeLeft)}</span> para encerrar a votação</p>
