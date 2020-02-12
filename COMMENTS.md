@@ -16,7 +16,33 @@
   - [Feathers](https://feathersjs.com/)
     - [Sequelize](https://sequelize.org/)
 
+## Deploy local com Docker
 
+No Ubuntu:  (não uso ubuntu, portanto não pude testálo completamente)
+
+Na raíz do repositório, para **instalar o Docker** e criar as imagens:
+```sh
+./configure
+```
+
+Para **iniciar** os *containers*:
+```sh
+make run
+```
+
+Para **parar** os *containers*:
+```sh
+make stop
+```
+
+Para **remover** os *containers*:
+```sh
+make rm
+```
+
+Observações:
+1. Não consegui fazer o container do MariaDB aceitar conexões.
+2. Não estou montando a pasta de dados do MariaDB, não há persistência de dados entre imagems de Docker diferentes.
 
 ## Front-end
 
