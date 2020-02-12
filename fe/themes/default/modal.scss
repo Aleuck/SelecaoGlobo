@@ -4,10 +4,11 @@
 .modal {
   border: 5px solid color('lighter-gray');
   border-radius: 5px;
-  width: 630px;
-  max-width: 100vw;
+  max-width: 90vw;
   margin: 15px auto;
   position: relative;
+
+  width: 630px;
 
   &__wrapper {
     border: 1px solid color('gray');

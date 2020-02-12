@@ -1,1 +1,40 @@
 @import './config';
+
+.results {
+  // margin-bottom: -50%;
+  svg,
+  img {
+    max-width: 40%;
+    height: auto;
+  }
+}
+
+.timeLeft {
+  text-transform: uppercase;
+  position: absolute;
+  top: 0;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .75em;
+  color: color("text-light");
+
+  p {
+    max-width: 185px;
+    margin: 0;
+  }
+
+  span {
+    display: block;
+    // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2.5em;
+    line-height: 1em;
+    margin-bottom: 5px;
+    color: color("secondary");
+  }
+}
+
+@keyframes grow-y {}
