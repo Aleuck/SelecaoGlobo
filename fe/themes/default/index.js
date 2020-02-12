@@ -8,3 +8,4 @@ export { default as modalHeader } from './modal-header.scss';
 export { default as modalFooter } from './modal-footer.scss';
 export { default as icons } from './icons.scss';
 export { default as textInput } from './text-input.scss';
+export { default as votingModal } from './voting-modal.scss';

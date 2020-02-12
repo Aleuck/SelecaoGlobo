@@ -82,7 +82,6 @@ class ParticipantsSelect extends React.Component {
       participants,
     } = this.props;
     const classes = this.context.participantsSelect
-    console.log('state', this.state);
     return (
       <div className={classes['participants-select']}>
         {participants.map((participant, index) => (

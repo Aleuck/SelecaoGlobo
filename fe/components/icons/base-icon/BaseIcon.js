@@ -16,7 +16,7 @@ class BaseIcon extends React.Component {
     iconName: PropTypes.string.isRequired,
   };
   static contextType = ThemeContext;
-  static sizes = [36];
+  static sizes = [36, 39];
   render() {
     const { size, iconName } = this.props;
     const classes = this.context.icons;

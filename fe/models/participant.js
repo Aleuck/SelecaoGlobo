@@ -7,6 +7,7 @@ const propType = PropTypes.shape({
   image: PropTypes.string,
   callNumber: PropTypes.string,
   smsNumber: PropTypes.string,
+  votes: PropTypes.number,
 });
 
 export { propType };

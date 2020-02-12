@@ -46,7 +46,7 @@ exports.CurrentWall = class CurrentWall {
     // lets keep the ongoing wall in cache
     if (
       walls.length > 0 &&
-      walls[0].endsAt + (availableDurationAfterWallEnds) > Date.now()
+      walls[0].endsAt + (availableDurationAfterWallEnds) <= Date.now()
     ) {
       return Promise.resolve(walls);
     } else {
@@ -54,7 +54,7 @@ exports.CurrentWall = class CurrentWall {
       return this.app.service('walls').find({
         query: {
           startsAt: { $lte: new Date().toISOString() },
-          endsAt: { $gt: new Date(Date.now() + (availableDurationAfterWallEnds)).toISOString() },
+          endsAt: { $gt: new Date(Date.now() - (availableDurationAfterWallEnds)).toISOString() },
           $sort: {
             startsAt: -1, // descending
           },
