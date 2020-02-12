@@ -8,6 +8,17 @@ run-be:
 run-fe:
 	sudo docker run --name aleuck-bbb-fe -ti -d -p 3000:3000 paredao-fe:v1
 
+
+start-db:
+	sudo docker start aleuck-bbb-db
+
+start-be:
+	sudo docker start aleuck-bbb-be
+
+start-fe:
+	sudo docker start aleuck-bbb-fe
+
+
 stop-db:
 	sudo docker stop aleuck-bbb-db
 
@@ -16,6 +27,7 @@ stop-be:
 
 stop-fe:
 	sudo docker stop aleuck-bbb-fe
+
 
 rm-db:
 	sudo docker rm aleuck-bbb-db
@@ -26,8 +38,8 @@ rm-be:
 rm-fe:
 	sudo docker rm aleuck-bbb-fe
 
-run: run-db run-be run-fe
 
+run: run-db run-fe run-be
+start: start-db start-fe start-be
 stop: stop-fe stop-be stop-db
-
 rm: rm-db rm-be rm-fe
