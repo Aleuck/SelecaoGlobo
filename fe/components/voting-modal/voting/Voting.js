@@ -1,11 +1,9 @@
 import React, { Fragment } from 'react';
-import ModalHeader from '../../modal-header';
 import ModalFooter from '../../modal-footer';
-import { WallIcon } from '../../icons';
 import ParticipantsSelect from '../../participants-select';
 import Button from '../../button';
 import PropTypes from 'prop-types';
-import { propType as participantPropType } from '../../../models/participant'
+import { propType as participantPropType } from '../../../models/participant';
 
 class Voting extends React.Component {
   static propTypes = {

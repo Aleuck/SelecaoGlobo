@@ -16,7 +16,7 @@ class FeathersClient extends React.Component {
     super(props);
     this.state = {
       initialized: false,
-    }
+    };
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class FeathersClient extends React.Component {
   }
 
   render() {
-    return (this.state.initialized ? this.props.children(this.client) : this.props.loadingComponent || "loading");
+    return (this.state.initialized ? this.props.children(this.client) : this.props.loadingComponent || 'loading');
   }
 }
 

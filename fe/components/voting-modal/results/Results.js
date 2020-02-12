@@ -1,10 +1,17 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import DonutChart from '../../donut-chart';
 import ParticipantPicture from '../../participant-picture';
 import ThemeContext from  '../../../themes/ThemeContext';
+import PropTypes from 'prop-types';
+import { propType as participantPropType } from '../../../models/participant';
 
 class Results extends Component {
   static contextType = ThemeContext;
+  static propTypes = {
+    participants: PropTypes.arrayOf(participantPropType),
+    votedOn: participantPropType,
+    timeLeft: PropTypes.number,
+  };
 
   formatTime(time) {
     const rawSecs = time;

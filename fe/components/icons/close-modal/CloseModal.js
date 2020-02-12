@@ -1,5 +1,5 @@
 import BaseIcon from '../base-icon';
-
+import PropTypes from 'prop-types';
 /**
  * CloseModal Icon Component
  * @class
@@ -9,6 +9,10 @@ import BaseIcon from '../base-icon';
 const CloseModal = ({ size }) => {
   size = size || 39;
   return (<BaseIcon iconName='close-modal' size={size} />);
-}
+};
+
+CloseModal.propTypes = {
+  size: PropTypes.number,
+};
 
 export default CloseModal;

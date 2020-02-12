@@ -1,8 +1,13 @@
 import React from 'react';
 import * as d3 from 'd3';
-import { color } from 'd3';
+import PropTypes from 'prop-types';
 
 class DonutChart extends React.Component {
+  static propTypes = {
+    radius: PropTypes.number,
+    width: PropTypes.number,
+    data: PropTypes.arrayOf(PropTypes.number),
+  }
 
   componentDidMount() {
     this.createDonutChart();
@@ -33,7 +38,7 @@ class DonutChart extends React.Component {
       .sort(null)(data);
 
 
-    const range = (data[0].value <= data[1].value) ? ["#ff9516", "#c6c6c6"] : ["#c6c6c6", "#ff9516"]
+    const range = (data[0].value <= data[1].value) ? ['#ff9516', '#c6c6c6'] : ['#c6c6c6', '#ff9516'];
     const color = d3.scaleOrdinal()
       .domain(data)
       .range(range);
@@ -41,7 +46,7 @@ class DonutChart extends React.Component {
 
     const svg = d3.select(this.node)
       .append('g')
-        .attr('transform', `translate(${radius},${radius})\nrotate(180)`);
+      .attr('transform', `translate(${radius},${radius})\nrotate(180)`);
 
     svg.append('circle')
       .attr('r', radius - width / 2)
@@ -55,26 +60,26 @@ class DonutChart extends React.Component {
     svg.selectAll('path')
       .data(arcs)
       .join('path')
-        .attr('fill', d => color(d.data.value))
-        .attr('stroke', 'white')
-        .attr('stroke-width', '2')
-        .attr('d', arc)
+      .attr('fill', d => color(d.data.value))
+      .attr('stroke', 'white')
+      .attr('stroke-width', '2')
+      .attr('d', arc);
     svg.append('g')
-      .attr("font-family", "Raleway, sans-serif")
-      .attr("font-size", 22)
-      .attr("text-anchor", "middle")
-    .selectAll('text')
-    .data(arcs)
-    .join('text')
-      .attr("transform", d => [
+      .attr('font-family', 'Raleway, sans-serif')
+      .attr('font-size', 22)
+      .attr('text-anchor', 'middle')
+      .selectAll('text')
+      .data(arcs)
+      .join('text')
+      .attr('transform', d => [
         `rotate(${180 * (d.index ? d.startAngle + 0.3 : d.endAngle - 0.3)/Math.PI})`,
       ])
-      .call(text => text.append("tspan")
-        .attr("y", `-${radius - 7 - width / 2}px`)
-        .attr("fill", "#ffffff")
-        .attr("style", "text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.35);")
-        .attr("font-weight", "700")
-        .text(d => d.data.name))
+      .call(text => text.append('tspan')
+        .attr('y', `-${radius - 7 - width / 2}px`)
+        .attr('fill', '#ffffff')
+        .attr('style', 'text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.35);')
+        .attr('font-weight', '700')
+        .text(d => d.data.name));
   };
 
   render() {
@@ -83,7 +88,7 @@ class DonutChart extends React.Component {
       ref={node => this.node = node}
       width={radius * 2} height={radius * 2}
       viewBox={`0 0 ${radius * 2} ${radius * 2}`}
-    />
+    />;
   }
 }
 

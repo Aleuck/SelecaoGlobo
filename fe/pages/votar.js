@@ -43,22 +43,22 @@ class Votar extends React.Component {
     return (
       <Layout pageTitle="">
         {
-        state === 'loading' ? (
+          state === 'loading' ? (
             <Modal>
               <h2>Carregando</h2>
             </Modal>
-        ) :
-        state === 'loaded' ? (
-            <VotingModal
-              wall={wall}
-              onRequestWallUpdate={this.fetchWallData}
-            />
-        ) :
-        (
-          <Modal>
-            <p>Não há nenhum paredão em andamento.</p>
-          </Modal>
-        )
+          ) :
+            state === 'loaded' ? (
+              <VotingModal
+                wall={wall}
+                onRequestWallUpdate={this.fetchWallData}
+              />
+            ) :
+              (
+                <Modal>
+                  <p>Não há nenhum paredão em andamento.</p>
+                </Modal>
+              )
         }
 
       </Layout>

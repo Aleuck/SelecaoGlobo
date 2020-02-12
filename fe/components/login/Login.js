@@ -14,7 +14,7 @@ import {
 
 import {
   withStyles,
-} from '@material-ui/core/styles'
+} from '@material-ui/core/styles';
 
 import Alert from '@material-ui/lab/Alert';
 
@@ -29,6 +29,7 @@ class Login extends React.Component {
     onSubmit: PropTypes.func,
     errorMessage: PropTypes.string,
     disabled: PropTypes.bool,
+    classes: PropTypes.object,
   }
 
   constructor(props) {
@@ -36,7 +37,7 @@ class Login extends React.Component {
     this.state = {
       username: '',
       password: '',
-    }
+    };
     // if (props.failedInfo) {
     //   this.state.username = props.failedInfo.username;
     // }
@@ -71,7 +72,7 @@ class Login extends React.Component {
     return (
       <Layout>
         <Container maxWidth="xs">
-          <Card style={{textAlign:"left"}}>
+          <Card style={{textAlign:'left'}}>
             {this.props.errorMessage ? (<Alert severity="error">{this.props.errorMessage}</Alert>) : null}
             <CardHeader title="Paredão BBB" subheader="Dashboard login" />
             <CardContent>

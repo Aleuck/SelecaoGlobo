@@ -13,6 +13,15 @@ import ThemeContext from '../../../themes/ThemeContext';
  */
 class DefaultLayout extends Component {
   static contextType = ThemeContext;
+
+  static propTypes = {
+    pageTitle: PropTypes.string,
+    header: PropTypes.node,
+    children: PropTypes.node,
+    fullHeight: PropTypes.bool,
+    flexRow: PropTypes.bool,
+  }
+
   render() {
     const classes = this.context.layout;
     return (
@@ -38,10 +47,5 @@ class DefaultLayout extends Component {
     );
   }
 }
-
-DefaultLayout.propTypes = {
-  header: PropTypes.node,
-  children: PropTypes.node,
-};
 
 export default DefaultLayout;

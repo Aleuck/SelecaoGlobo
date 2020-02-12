@@ -67,7 +67,7 @@ class Selectable extends React.Component {
       ariaLabel,
       role,
     } = this.props;
-    const classes = this.context.selectable
+    const classes = this.context.selectable;
     return (
       <React.Fragment>
         <label
@@ -80,7 +80,7 @@ class Selectable extends React.Component {
           onKeyDown={this.keyDownHandler} // And selectable with 'space' or 'Enter' keys
           ref={this.labelRef}
           aria-label={ariaLabel}
-          role={role || "checkbox"}
+          role={role || 'checkbox'}
         >
           {children}
         </label>

@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+/* globals FormData */
+import React from 'react';
 import PropTypes from 'prop-types';
 import ThemeContext from '../../../themes/ThemeContext';
 
@@ -12,12 +13,16 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import Dropzone, { useDropzone } from 'react-dropzone';
+import Dropzone from 'react-dropzone';
 import jQuery from 'jquery';
 
 class ImageDropzone extends React.Component {
   static contextType = ThemeContext;
-
+  static propTypes = {
+    client: PropTypes.object.isRequired,
+    onDropAccepted: PropTypes.func,
+    preview: PropTypes.string,
+  };
 
 
   render() {
@@ -46,6 +51,13 @@ class ImageDropzone extends React.Component {
   }
 }
 class EditParticipantDialog extends React.Component {
+  static propTypes = {
+    client: PropTypes.object.isRequired,
+    onSubmit: PropTypes.func,
+    seasonId: PropTypes.number.isRequired,
+    open: PropTypes.bool,
+    onClose: PropTypes.func,
+  };
   constructor(props) {
     super(props);
 
@@ -144,7 +156,7 @@ class EditParticipantDialog extends React.Component {
           <Button color="secondary" onClick={this.handleSubmit}>Salvar</Button>
         </DialogActions>
       </Dialog>
-    )
+    );
   }
 }
 

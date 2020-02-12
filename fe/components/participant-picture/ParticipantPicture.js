@@ -30,7 +30,7 @@ class ParticipantPicture extends React.Component {
           this.setState({
             imageUri: imageData.uri,
           });
-        })
+        });
     }
   }
 
@@ -47,6 +47,6 @@ class ParticipantPicture extends React.Component {
       />
     );
   }
-};
+}
 
 export default ParticipantPicture;

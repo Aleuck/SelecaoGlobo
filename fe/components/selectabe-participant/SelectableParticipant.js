@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ThemeContext from '../../themes/ThemeContext';
 import Selectable from '../selectable';
 import { propType as participantPropType } from '../../models/participant';
-import ParticipantPicture from '../participant-picture'
+import ParticipantPicture from '../participant-picture';
 /** Class represents a selectable participant */
 class SelectableParticipant extends React.Component {
   static contextType = ThemeContext;
@@ -14,6 +14,8 @@ class SelectableParticipant extends React.Component {
     tabIndex: PropTypes.number,
     participant: participantPropType,
     onKeyDown: PropTypes.func,
+    selected: PropTypes.bool,
+    onChange: PropTypes.func,
   };
 
   /**

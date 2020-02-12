@@ -3,17 +3,20 @@ import Modal from '../modal';
 import ModalHeader from '../modal-header';
 import { WallIcon } from '../icons';
 import ReCAPTCHA from 'react-google-recaptcha';
-
+import PropTypes from 'prop-types';
 import Voting from './voting';
 import Results from './results';
+import fetch from 'isomorphic-fetch';
 
-import { propType as wallPropType } from '../../models/wall'
+import { propType as wallPropType } from '../../models/wall';
 
 const recaptchaRef = React.createRef();
 
 class VotingModal extends React.Component {
   static propTypes = {
     wall: wallPropType,
+    onClose: PropTypes.func,
+    onRequestWallUpdate: PropTypes.func,
   }
 
   constructor(props) {
@@ -32,7 +35,7 @@ class VotingModal extends React.Component {
 
   updateTime = () => {
     const timeLeft = Math.floor((new Date(this.props.wall.endsAt) - Date.now()) / 1000);
-    const canVote = timeLeft > 0
+    const canVote = timeLeft > 0;
     if (
       (!canVote || this.state.votedOnId) &&
       typeof this.props.onRequestWallUpdate === 'function' &&

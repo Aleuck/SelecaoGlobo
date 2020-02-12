@@ -11,7 +11,7 @@ class ModalHeader extends React.Component {
 
   render() {
     const { title, icon } = this.props;
-    const classes = this.context.modalHeader
+    const classes = this.context.modalHeader;
     return (
       <div className={classes.modalHeader}>
         <div className={classes.modalHeader__wrapper}>

@@ -13,9 +13,9 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { Add } from '@material-ui/icons';
-import LuxonUtils from '@date-io/luxon'
+import LuxonUtils from '@date-io/luxon';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import EditSeasoDialog from './edit-season-dialog'
+import EditSeasoDialog from './edit-season-dialog';
 import EditParticipantDialog from './edit-participant-dialog';
 
 const styles = theme => ({
@@ -70,7 +70,7 @@ const SeasonTabPanel = (props) => {
       )}
     </Fragment>
   );
-}
+};
 
 SeasonTabPanel.propTypes = {
   children: PropTypes.node,
@@ -107,6 +107,7 @@ class Dashboard extends React.Component {
     user: PropTypes.object,
     client: PropTypes.object.isRequired,
     logout: PropTypes.func,
+    classes: PropTypes.object,
   };
 
   constructor(props) {
@@ -131,7 +132,7 @@ class Dashboard extends React.Component {
           seasons: [...response],
           selectedSeason: response.length - 1,
           currentTab: response.length,
-        })
+        });
       })
       .catch(reason => {
         console.log('find failed', reason);
@@ -140,7 +141,7 @@ class Dashboard extends React.Component {
 
   componentWillUnmount() {
     this.seasonsService.removeAllListeners('created');
-  };
+  }
 
   handleMessageSeasonCreated = season => {
     console.log('handleMessageSeasonCreated', season);
@@ -233,7 +234,7 @@ class Dashboard extends React.Component {
             ))}
             <CreateSeasonTab
               label={'Criar nova'}
-              id={`create-season-tab`}
+              id={'create-season-tab'}
             />
           </Tabs>
 
@@ -268,7 +269,7 @@ class Dashboard extends React.Component {
           <SeasonTabPanel
             index={seasons.length + 1}
             value={currentTab}
-            id={`create-season-tab`}
+            id={'create-season-tab'}
             className={classes.createSeasonPanel}
           >
 

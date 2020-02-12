@@ -68,7 +68,7 @@ class FeathersAuth extends React.Component {
         authState: AUTH_STATES.unauthenticated,
         errorMessage: reason.message,
       });
-    })
+    });
   };
 
   logoutHandler = () => {

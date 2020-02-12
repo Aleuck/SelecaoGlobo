@@ -17,7 +17,7 @@ class Modal extends React.Component {
   }
 
   render() {
-    const classes = this.context.modal
+    const classes = this.context.modal;
     return (
       <div className={classes.modal}>
         <button

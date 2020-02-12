@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ThemeContext from '../../themes/ThemeContext';
-import { propType as participantPropType } from '../../models/participant'
+import { propType as participantPropType } from '../../models/participant';
 
 import SelectableParticipant from '../selectabe-participant';
 
@@ -37,7 +37,7 @@ class ParticipantsSelect extends React.Component {
       ArrowLeft: this.selectPrevious,
       ArrowDown: this.selectNext,
       ArrowRight: this.selectNext,
-    }
+    };
     const action = keyActions[event.key];
     if (typeof action === 'function') {
       action();
@@ -81,7 +81,7 @@ class ParticipantsSelect extends React.Component {
     const {
       participants,
     } = this.props;
-    const classes = this.context.participantsSelect
+    const classes = this.context.participantsSelect;
     return (
       <div className={classes['participants-select']}>
         {participants.map((participant, index) => (
@@ -105,4 +105,4 @@ class ParticipantsSelect extends React.Component {
   }
 }
 
-export default ParticipantsSelect
+export default ParticipantsSelect;

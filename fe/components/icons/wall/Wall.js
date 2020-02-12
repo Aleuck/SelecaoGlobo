@@ -1,4 +1,5 @@
 import BaseIcon from '../base-icon';
+import PropTypes from 'prop-types';
 
 /**
  * Wall Icon Component
@@ -9,6 +10,10 @@ import BaseIcon from '../base-icon';
 const Wall = ({ size }) => {
   size = size || 36;
   return (<BaseIcon iconName='wall' size={size} />);
-}
+};
+
+Wall.propTypes = {
+  size: PropTypes.number,
+};
 
 export default Wall;
