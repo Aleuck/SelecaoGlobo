@@ -1,6 +1,4 @@
 {
-  "host": "localhost",
-  "port": "PORT",
-  "recaptchaSecretKey": "RECAPTCHA_SECRET_KEY",
-  "mysql": "DATABASE_URL"
+  "host": "HOST",
+  "port": "PORT"
 }

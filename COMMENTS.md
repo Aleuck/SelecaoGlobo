@@ -71,15 +71,13 @@ Para poder reutilizar componentes com diferentes estilos, criei um *ThemeContext
 
 ## Back End
 
-
-### Database
+### Banco de dados
 Optei por utilizar o MariaDB, estruturei os dados de maneira bem relacional.
 
 #### Estrutura do banco de dados
 ![DatabaseStructure](database_structure.png)
 
-
-#### Performance
+### Performance
 
 Um insert por voto não alcancaria uma boa performance. Principalmente por conta da atualização dos índices. Optei por guardar os votos em memória e salvar eles no banco de dados em intervalos (a cada 10 segundos, por exemplo), assim utilizo um único insert para uma quantidade maior de votos e diminuindo o número de atualização dos índices.
 
@@ -89,56 +87,21 @@ Ainda assim, imagino que a validação recaptcha iria diminuir a performance do 
 
 Para aguentar a carga de 1000 votos por segundo (ou mais), mesmo com validação do *ReCaptcha*, seria importante ter mais de uma instância do servidor de back-end e um balanceador de carga.
 
+### Transporte Cliente/Servidor
 
-### Feathers.js:
-Feathers até tem suporte a outros bancos de dados sem usar o *Sequelize*. Os que ele suporta por padrão são:
+Para usuários comuns, na página de votação. A comunicação com o servidor será por HTTP(S) (REST). Utilizar transporte baseado em conexão (websockets) seria muito custoso (imagino um número muito grande de conexões).
+
+Para usuários do *Dashboard Adminsitrativo*. Será usado *web-sockets*. Assim, fica mais simples atualizar os dados em tempo real.
 
 
-### Testes
+## Testes:
 
 Para testes unitários no front-end, optei pelo [*Mocha*](https://mochajs.org/) com asserções do [*Chai*](https://www.chaijs.com/), pois já tenho alguma familiariedade com eles.
 
 Nunca havia usado essas feramentas com *React*. Foi um pequeno desafio configurar.
 
 
-
-## 2020-01-16 - Quinta
-
-
-
-## 2020-01-17 - Sexta
-
 Para aceitar apenas votos de pessoas, e não de máquinas, usarei o ReCAPTCHA.
 Usei o modo invisível dele para não quebrar o layout.
 
-## 2020-01-18 - Sábado
 
-## 2020-01-19 - Domingo
-
-### Escopo de css por componente
-
-
-
-## 2020-01-20 - Segunda
-
-
-## 2020-01-21 - Terça
-
-### Estrutura do Banco de Dados
-
-Definida a estrutura do banco de dados.
-
-
-
-### Performance do Banco de Dados
-
-
-
-
-## 2020-01-22 - Quarta
-
-### Transporte Cliente/Servidor
-
-Para usuários comuns, na página de votação. A comunicação com o servidor será por HTTP(S) (REST). Utilizar transporte baseado em conexão (websockets) seria muito custoso.
-
-Para usuários do *Dashboard Adminsitrativo*. Será usado *web-sockets*. Assim, fica mais simples atualizar os dados em tempo real.
