@@ -7,7 +7,7 @@ class Results extends Component {
   static contextType = ThemeContext;
 
   formatTime(time) {
-    const rawSecs = Math.floor(time / 1000);
+    const rawSecs = time;
     const rawMins = Math.floor(rawSecs / 60);
     const rawHours = Math.floor(rawMins / 60);
     const secs = (rawSecs - rawMins * 60).toString(10).padStart(2, '0');
@@ -19,7 +19,7 @@ class Results extends Component {
     const { participants, votedOn, timeLeft } = this.props;
     const classes = this.context.votingModal;
     return (
-      <Fragment>
+      <div className={classes.results}>
         {votedOn && (
           <p>
             <strong>Parabéns!</strong> Seu voto para <strong>{votedOn.name}</strong> foi enviado com sucesso.
@@ -39,7 +39,11 @@ class Results extends Component {
             width: '100%',
             left: '0',
           }}>
-            {timeLeft && timeLeft > 0 ? (<p>Faltam <span>{this.formatTime(timeLeft)}</span> para encerrar a votação</p>) : null}
+            {timeLeft && timeLeft > 0 ? (
+              <div className={classes.timeLeft}>
+                <p>Faltam <span>{this.formatTime(timeLeft)}</span> para encerrar a votação</p>
+              </div>
+            ) : null}
             <DonutChart
               radius={135}
               width={45}
@@ -47,7 +51,7 @@ class Results extends Component {
             />
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

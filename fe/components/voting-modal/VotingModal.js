@@ -31,11 +31,18 @@ class VotingModal extends React.Component {
   }
 
   updateTime = () => {
-    const timeLeft = (new Date(this.props.wall.endsAt) - Date.now());
-    console.log('timeLeft', (timeLeft / 1000).toFixed(0));
+    const timeLeft = Math.floor((new Date(this.props.wall.endsAt) - Date.now()) / 1000);
+    const canVote = timeLeft > 0
+    if (
+      (!canVote || this.state.votedOnId) &&
+      typeof this.props.onRequestWallUpdate === 'function' &&
+      (timeLeft % 15 === 0)
+    ) {
+      this.props.onRequestWallUpdate();
+    }
     this.setState({
       timeLeft,
-      canVote: timeLeft > 0,
+      canVote,
     });
   }
 
@@ -92,6 +99,9 @@ class VotingModal extends React.Component {
           this.setState({
             votedOnId: selectedParticipant,
           });
+          if (typeof this.props.onRequestWallUpdate === 'function') {
+            this.props.onRequestWallUpdate();
+          }
         }
       });
   };

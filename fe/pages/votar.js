@@ -19,7 +19,7 @@ class Votar extends React.Component {
     this.fetchWallData();
   }
 
-  fetchWallData() {
+  fetchWallData = () => {
     return fetch(`${process.env.SERVER_URL}/current-wall`)
       .then(response => response.json())
       .then(([wallData]) => {
@@ -51,6 +51,7 @@ class Votar extends React.Component {
         state === 'loaded' ? (
             <VotingModal
               wall={wall}
+              onRequestWallUpdate={this.fetchWallData}
             />
         ) :
         (
