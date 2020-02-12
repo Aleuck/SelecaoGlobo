@@ -40,8 +40,6 @@ class DonutChart extends React.Component {
 
 
     const svg = d3.select(this.node)
-        .attr('height', radius * 2)
-        .attr('width', radius * 2)
       .append('g')
         .attr('transform', `translate(${radius},${radius})\nrotate(180)`);
 
@@ -84,6 +82,7 @@ class DonutChart extends React.Component {
     return <svg
       ref={node => this.node = node}
       width={radius * 2} height={radius * 2}
+      viewBox={`0 0 ${radius * 2} ${radius * 2}`}
     />
   }
 }
