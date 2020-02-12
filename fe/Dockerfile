@@ -1,9 +1,9 @@
 FROM node:13-alpine
 
-LABEL version="0.1"
+LABEL version="1.0"
 LABEL description="Votação do BBB - Front-end"
 
-ENV NODE_ENV=production
+ENV NODE_ENV production
 
 ADD . /app
 WORKDIR /app
