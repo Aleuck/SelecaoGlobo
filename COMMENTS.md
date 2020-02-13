@@ -16,6 +16,23 @@
   - [Feathers](https://feathersjs.com/)
     - [Sequelize](https://sequelize.org/)
 
+## Rodando manualmente, localmente
+
+1. Instalar dependencias
+  - [NodeJS](https://nodejs.org/) 13
+  - [MariaDB](https://mariadb.org/) 15
+  - [Yarn](https://yarnpkg.com/) 1.21
+2. Criar banco de dados e usuário no MariaDB
+  - Banco: paredao_bbb
+  - Usuário: paredao_bbb
+  - Senha: p4r3d40_bbb_aleuck!
+3. Fazer build:
+  - Nos diretórios `be/` e `fe/`, rodar o comando: `yarn`
+  - No diretório `fe/`, rodar o comando `yarn build`
+4. Iniciar a aplicação:
+  - Nos diretórios `be/` e `fe/`, rodar o comando: `yarn start`
+  - Acessar http://localhost:3000/
+
 ## Deploy local com Docker
 
 No Ubuntu:  (não uso ubuntu, portanto não pude testálo completamente)
@@ -29,6 +46,9 @@ Para **iniciar** os *containers*:
 ```sh
 make run
 ```
+
+Para **acessar** a *aplicação*:
+  - Acessar http://localhost:3000/
 
 Para **parar** os *containers*:
 ```sh
@@ -44,6 +64,7 @@ Observações:
 1. Não consegui fazer o container do MariaDB aceitar conexões.
 2. Não estou montando a pasta de dados do MariaDB, não há persistência de dados entre imagems de Docker diferentes.
 
+
 ## Front-end
 
 Utilizei o Next.js para aprender mais sobre a ferramenta, e também porque pela facilidade de realizar renderização por backend.
@@ -57,9 +78,49 @@ Todos os componentes ficam no diretório `fe/components`
 
 Procurei utilizar as propriedades *aria-label*, *role* etc. assim como estilização diferenciada para *:focus* em componentes intergíveis para atingir um nível mínimo de acessibilidade.
 
+Não estou satisfeita com a componentização dos elementos do Dashboard (telas de gerência). Se tivesse mais tempo organizaria melhor.
+
+
 #### Button
 
 Procurei fazer um botão com a aparência mais próxima possível do botão mostrado na imagem de referência, utilizando apenas recursos de estilos (CSS).
+
+
+#### Dashboard
+
+Painel de gerência. Onde os organizadores do BBB podem cadastrar as temporadas, os participantes, os paredões e conferir os resultados. Acessível na rota `/admin`.
+
+
+#### DonutChart
+
+Gráfico usado para mostrar os resultados após o voto. Feito com D3.js.
+
+
+#### Feathers
+
+Dois componentes, **FeathersClient** e **FeathersAuth**. Utilizam a técnica *render props* para passar adiante o objeto do cliente Feathers e para gerenciar o estado da sessão (login).
+
+Obs.: Acredito que teria sido melhor se eu tivesse feito um Context para isso, ou utilizado *Redux*.
+
+
+#### Icons
+
+Componentes de icones utilizados. Não foi a melhor implementação para um sistema de icones, mas serviu este propósito.
+
+
+#### Layouts
+
+Componentes que definem a estrutura e aparência básica do site.
+
+
+#### Login
+
+Apenas um formulário de login. Utilizado para a autênticação da página de gerência `/admin`.
+
+
+#### Modal
+
+Conjuntos de componentes feitos para seguir o design passado como exemplo.
 
 
 #### ParticipantPicture
@@ -94,7 +155,6 @@ Optei pelo uso de *CSS Modules* para que as classes fiquem em escopo local, ou s
 Para poder reutilizar componentes com diferentes estilos, criei um *ThemeContext* para prover as classes.
 
 
-
 ## Back End
 
 ### Banco de dados
@@ -119,6 +179,8 @@ Para usuários comuns, na página de votação. A comunicação com o servidor s
 
 Para usuários do *Dashboard Adminsitrativo*. Será usado *web-sockets*. Assim, fica mais simples atualizar os dados em tempo real.
 
+No fim imagino que tenha sido uma má ideia utilizar *web-sockets* para a tela de administração. Pois assim não posso utilizar o [`Cluster`](https://nodejs.org/api/cluster.html) do NodeJS, pois seria impossível garantir que o mesmo processo que realizou o *handshake* inicial receberia a conexão websocket.
+
 
 ## Testes:
 
@@ -126,8 +188,4 @@ Para testes unitários no front-end, optei pelo [*Mocha*](https://mochajs.org/) 
 
 Nunca havia usado essas feramentas com *React*. Foi um pequeno desafio configurar.
 
-
-Para aceitar apenas votos de pessoas, e não de máquinas, usarei o ReCAPTCHA.
-Usei o modo invisível dele para não quebrar o layout.
-
-
+Não tive tempo para dar muita atenção aos testes. Se tivesse mais tempo, escreveria testes para cada componente.
