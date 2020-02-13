@@ -1,10 +1,11 @@
 import '../themes/base-css';
-import React from 'react';
+import React, { Fragment } from 'react';
 import fetch from 'isomorphic-fetch';
 
 import Layout from '../components/layouts/default';
 import Modal from '../components/modal';
 import VotingModal from '../components/voting-modal';
+import Button from '../components/button';
 
 class Votar extends React.Component {
   constructor(props) {
@@ -12,11 +13,24 @@ class Votar extends React.Component {
     this.state = {
       wall: null,
       state: 'loading',
+      showModal: false,
     };
   }
 
   componentDidMount() {
     this.fetchWallData();
+  }
+
+  handleModalClose = () => {
+    this.setState({
+      showModal: false,
+    });
+  }
+
+  handleModalOpen = () => {
+    this.setState({
+      showModal: true,
+    });
   }
 
   fetchWallData = () => {
@@ -39,9 +53,16 @@ class Votar extends React.Component {
   }
 
   render() {
-    const { wall, state } = this.state;
+    const {
+      wall,
+      state,
+      showModal,
+    } = this.state;
     return (
-      <Layout pageTitle="">
+      <Layout
+        pageTitle="Paredão do BBB"
+        header={(<h1>Paredão do BBB</h1>)}
+      >
         {
           state === 'loading' ? (
             <Modal>
@@ -49,10 +70,22 @@ class Votar extends React.Component {
             </Modal>
           ) :
             state === 'loaded' ? (
-              <VotingModal
-                wall={wall}
-                onRequestWallUpdate={this.fetchWallData}
-              />
+              <Fragment>
+                <p>Bem vindo(a) ao paredão do BBB</p>
+                <Button onClick={this.handleModalOpen}>
+                  {
+                    new Date(wall.endsAt) > Date.now() ?
+                      ('Votar agora') :
+                      ('Conferir os resultados')
+                  }
+                </Button>
+                <VotingModal
+                  wall={wall}
+                  open={showModal}
+                  onClose={this.handleModalClose}
+                  onRequestWallUpdate={this.fetchWallData}
+                />
+              </Fragment>
             ) :
               (
                 <Modal>
@@ -60,7 +93,6 @@ class Votar extends React.Component {
                 </Modal>
               )
         }
-
       </Layout>
     );
   }

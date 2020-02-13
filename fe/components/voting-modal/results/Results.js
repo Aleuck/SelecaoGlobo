@@ -25,6 +25,7 @@ class Results extends Component {
   render() {
     const { participants, votedOn, timeLeft } = this.props;
     const classes = this.context.votingModal;
+    const wallEnded = !timeLeft || timeLeft <= 0;
     return (
       <div className={classes.results}>
         {votedOn && (
@@ -32,10 +33,15 @@ class Results extends Component {
             <strong>Parabéns!</strong> Seu voto para <strong>{votedOn.name}</strong> foi enviado com sucesso.
           </p>
         )}
+        {wallEnded ? (
+          <p>
+            <strong>A votação está encerrada.</strong>
+          </p>
+        ) : null }
         <div className={classes.resultsInfo}>
           {participants.map(p => <ParticipantPicture participant={p} key={p.id} />)}
           <div className={classes.donutChart}>
-            {timeLeft && timeLeft > 0 ? (
+            {!wallEnded > 0 ? (
               <div className={classes.timeLeft}>
                 <p>Faltam <span>{this.formatTime(timeLeft)}</span> para encerrar a votação</p>
               </div>

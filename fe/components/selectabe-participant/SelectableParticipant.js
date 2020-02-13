@@ -30,7 +30,6 @@ class SelectableParticipant extends React.Component {
   constructor(props) {
     super(props);
     this.selectableRef = React.createRef();
-    this.state = {};
   }
 
   focus() {

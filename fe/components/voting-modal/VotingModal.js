@@ -17,6 +17,7 @@ class VotingModal extends React.Component {
     wall: wallPropType,
     onClose: PropTypes.func,
     onRequestWallUpdate: PropTypes.func,
+    open: PropTypes.bool,
   }
 
   constructor(props) {
@@ -112,7 +113,6 @@ class VotingModal extends React.Component {
   handleModalClose = () => {
     this.setState({
       votedOnId: null,
-      selectedParticipant: null,
     });
     if (typeof this.props.onClose === 'function') {
       this.props.onClose();
@@ -122,7 +122,7 @@ class VotingModal extends React.Component {
   render() {
     const { participants } = this.props.wall;
     return (
-      <Modal open={true} onClose={this.handleModalClose}>
+      <Modal open={this.props.open} onClose={this.handleModalClose}>
         <ModalHeader
           icon={<WallIcon />}
           title={<h2>Quem deve ser <strong>eliminado</strong>?</h2>}

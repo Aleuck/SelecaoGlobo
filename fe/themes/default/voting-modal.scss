@@ -4,8 +4,10 @@
   // margin-bottom: -50%;
   svg,
   img {
+    height: 300px;
     max-width: 49%;
     height: auto;
+    object-fit: cover;
   }
 }
 
@@ -21,7 +23,7 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  margin: 0 -50px;
+  margin: -30px -50px 0;
 }
 
 .timeLeft {
