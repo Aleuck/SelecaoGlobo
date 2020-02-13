@@ -30,11 +30,12 @@ const styles = theme => ({
     maxHeight: 'min-content',
     minHeight: 'min-content',
   },
-  tabPanel: {
+  seasonTabPanel: {
     flexGrow: 1,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'stretch',
     minHeight: 'min-content',
   },
   createSeasonPanel: {
@@ -49,34 +50,55 @@ const styles = theme => ({
     bottom: theme.spacing(2),
     right: theme.spacing(4),
   },
+  seasonTitle: {
+    flexGrow: '1',
+    fontWeight: '700'
+  },
+  seasonTabs: {
+    flexGrow: '1',
+  },
+  seasonTabTabPanel: {
+    flexGrow: 1,
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    minHeight: 'min-content',
+  },
 });
 
-const SeasonTabPanel = (props) => {
-  const { children, value, index, ...other } = props;
+const createTabPanelComponent = identifier => {
+  const TabPanel = (props) => {
+    const { children, value, index, ...other } = props;
 
-  return (
-    <Fragment>
-      {value === index && (
-        <Typography
-          component="div"
-          role="tabpanel"
-          hidden={value !== index}
-          id={`season-tabpanel-${index}`}
-          aria-labelledby={`season-tab-${index}`}
-          {...other}
-        >
-          {children}
-        </Typography>
-      )}
-    </Fragment>
-  );
+    return (
+      <Fragment>
+        {value === index && (
+          <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`${identifier}-tabpanel-${index}`}
+            aria-labelledby={`${identifier}-tab-${index}`}
+            {...other}
+          >
+            {children}
+          </Typography>
+        )}
+      </Fragment>
+    );
+  };
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
+  return TabPanel;
 };
 
-SeasonTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
+const SeasonTabPanel = createTabPanelComponent('season');
+const SeasonTabTabPanel = createTabPanelComponent('season-tab');
 
 function a11yProps(index) {
   return {
@@ -144,12 +166,23 @@ class Dashboard extends React.Component {
   }
 
   handleMessageSeasonCreated = season => {
-    console.log('handleMessageSeasonCreated', season);
+    console.log('SeasonCreated', season);
     this.setState({
       seasons: [...this.state.seasons, season],
       selectedSeason: this.state.seasons.length,
       currentTab: this.state.seasons.length + 1,
     });
+  };
+
+  handleMessageParticipantCreated = participant => {
+    console.log('ParticipantCreated', participant);
+    const currentSeasonIdx = this.state.selectedSeason - 1;
+    if (this.state.seasons[currentSeasonIdx]) {
+      this.setState({
+        participants: [...this.state.participants, participant],
+        currentTab: this.state.seasons.length + 1,
+      });
+    }
   };
 
   handleCreateParticipantClose = () => {
@@ -244,17 +277,44 @@ class Dashboard extends React.Component {
               value={selectedSeason}
               id={`season-tab-${season.id}`}
               key={`season-tabpanel-${season.id}`}
-              className={classes.tabPanel}
+              className={classes.seasonTabPanel}
             >
-              <Tabs
-                variant="scrollable"
-                orientation="vertical"
+              <AppBar
+                position="static"
+                variant="outlined"
+                color="default"
               >
-                <Tab
-                  label="Participantes"
-                />
-              </Tabs>
-              {season.title}
+                <Toolbar variant="dense">
+                  <Typography className={classes.seasonTitle}>Temporada {season.title}</Typography>
+                  <Tabs
+                    variant="scrollable"
+                    orientation="horizontal"
+                    className={classes.seasonTabs}
+                    value={1}
+                  >
+                    <Tab
+                      label="Participantes"
+                    />
+                    <Tab
+                      label="Paredões"
+                    />
+                  </Tabs>
+                </Toolbar>
+              </AppBar>
+              <SeasonTabTabPanel
+                index={0}
+                value={1}
+                className={classes.seasonTabTabPanel}
+              >
+                a
+              </SeasonTabTabPanel>
+              <SeasonTabTabPanel
+                index={1}
+                value={1}
+                className={classes.seasonTabTabPanel}
+              >
+                b
+              </SeasonTabTabPanel>
               <Fab
                 color="primary"
                 aria-label="Adicionar temporada"
@@ -272,7 +332,6 @@ class Dashboard extends React.Component {
             id={'create-season-tab'}
             className={classes.createSeasonPanel}
           >
-
             <EditSeasoDialog
               onSubmit={this.handleCreateSeasonSubmit}
             />
