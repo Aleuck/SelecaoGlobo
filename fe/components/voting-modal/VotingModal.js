@@ -88,6 +88,10 @@ class VotingModal extends React.Component {
 
     recaptchaRef.current.reset();
 
+    this.setState({
+      captchaValue: null,
+    });
+
     return fetch(`${process.env.API_URL}/current-wall`, {
       method: 'POST',
       headers: {
