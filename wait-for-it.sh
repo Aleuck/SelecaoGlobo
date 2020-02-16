@@ -1,3 +1,4 @@
+#!/bin/bash
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   exec ./wait-for-it/wait-for-it.sh $1:$2 -t 0;
 elif [[ "$OSTYPE" == "darwin"* ]]; then
