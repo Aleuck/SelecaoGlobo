@@ -60,8 +60,62 @@ make stop
 make rm-all
 ```
 
-Observações:
-1. *Não estou montando a pasta de dados do MariaDB. Não há persistência de dados entre containers diferentes.*
+Outros comandos:
+```sh
+
+# Start containers individually
+make start-db
+make start-be
+make start-fe
+
+# Stop containers individually
+make stop-db
+make stop-be
+make stop-fe
+
+# Create images individually
+make create-img-db
+make create-img-be
+make create-img-fe
+
+# Remove images individually
+make rm-img-db
+make rm-img-be
+make rm-img-fe
+
+# Create containers individually
+make create-container-db
+make create-container-be
+make create-container-fe
+
+# Remove containers individually
+make rm-container-db
+make rm-container-be
+make rm-container-fe
+
+# Creates all docker images
+make create-imgs
+
+# Remove all docker images
+make rm-imgs
+
+# Create all containers
+make create-containers
+
+# Remove all containers
+make rm-containers
+
+# Remove specific container and respective image
+make rm-db
+make rm-be
+make rm-fe
+
+# Create or remove the docker network used
+make create-network
+make rm-network
+```
+
+*Obs.: Não estou montando a pasta de dados do MariaDB. Não há persistência de dados entre containers diferentes.*
 
 
 ## Front-end
