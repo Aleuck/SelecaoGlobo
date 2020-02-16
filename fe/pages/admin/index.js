@@ -11,7 +11,7 @@ import '../../themes/base-css';
 
 const Admin = () => (
   <ThemeProvider theme={muiTheme}>
-    <Client server={process.env.SERVER_URL}>
+    <Client server={process.env.API_URL}>
       {(client) => (
         <Auth
           client={client}

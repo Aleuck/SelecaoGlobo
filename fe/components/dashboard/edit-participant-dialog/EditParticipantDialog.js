@@ -78,7 +78,7 @@ class EditParticipantDialog extends React.Component {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          url: `${process.env.SERVER_URL}/images`,
+          url: `${process.env.API_URL}/images`,
           data: data,
           cache: false,
           contentType: false,

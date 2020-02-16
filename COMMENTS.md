@@ -35,41 +35,49 @@
 
 ## Deploy local com Docker
 
-No Ubuntu:  (não uso ubuntu, portanto não pude testálo completamente)
+*Todos os comandos devem ser executados na raís do projeto (repositório).*
 
-Na raíz do repositório, para **instalar o Docker** e criar as imagens:
+**Instalar o Docker** (apenas no ubuntu):
 ```sh
-./configure
+./configure.sh
 ```
 
-Para **iniciar** os *containers*:
+**Iniciar** os containers (também cria as imagens, containers e rede no docker se necessário):
 ```sh
 make run
 ```
 
-Para **acessar** a *aplicação*:
+**Acessar** a *aplicação*:
   - Acessar http://localhost:3000/
 
-Para **parar** os *containers*:
+**Parar** os *containers*:
 ```sh
 make stop
 ```
 
-Para **remover** os *containers*:
+**Remover** os *containers* e as *imagens* do docker:
 ```sh
-make rm
+make rm-all
 ```
 
 Observações:
-1. Não consegui fazer o container do MariaDB aceitar conexões.
-2. Não estou montando a pasta de dados do MariaDB, não há persistência de dados entre imagems de Docker diferentes.
+1. *Não estou montando a pasta de dados do MariaDB. Não há persistência de dados entre containers diferentes.*
 
 
 ## Front-end
 
-Utilizei o Next.js para aprender mais sobre a ferramenta, e também porque pela facilidade de realizar renderização por backend.
+Utilizei o *Next.js* para aprender mais sobre a ferramenta, e também pela facilidade de realizar renderização por backend.
 
-Optei por renderização estática ao invés de utilizar getInitialProps, pois isto atrazaria o *first paint*, diminuindo a percepção de performance. Prefiro diminuir o tempo de tela branca.
+Optei por renderização estática ao invés de utilizar *getInitialProps*, pois isto atrazaria o *first paint*, diminuindo a percepção de performance. Prefiro diminuir o tempo de tela branca.
+
+
+### Testes:
+
+Para testes unitários no front-end, optei pelo [*Mocha*](https://mochajs.org/) com asserções do [*Chai*](https://www.chaijs.com/), pois já tenho alguma familiariedade com eles.
+
+Nunca havia usado essas feramentas com *React*. Foi um pequeno desafio configurar.
+
+Não tive tempo para dar muita atenção aos testes. Se tivesse mais tempo, escreveria testes para cada componente.
 
 
 ### Componentes
@@ -78,7 +86,7 @@ Todos os componentes ficam no diretório `fe/components`
 
 Procurei utilizar as propriedades *aria-label*, *role* etc. assim como estilização diferenciada para *:focus* em componentes intergíveis para atingir um nível mínimo de acessibilidade.
 
-Não estou satisfeita com a componentização dos elementos do Dashboard (telas de gerência). Se tivesse mais tempo organizaria melhor.
+Faltou componentização dos elementos do Dashboard (telas de gerência). Parte disso se deve ao tempo, e outra parte por ter decidido passar o objeto cliente para os componentes através de *props* ao invés de usar *Redux* ou um *ContextProvider* (o que se demonstrou um erro).
 
 
 #### Button
@@ -95,12 +103,14 @@ Painel de gerência. Onde os organizadores do BBB podem cadastrar as temporadas,
 
 Gráfico usado para mostrar os resultados após o voto. Feito com D3.js.
 
+Com mais tempo, faria com que tivesse uma animação na atualização dos dados.
+
 
 #### Feathers
 
 Dois componentes, **FeathersClient** e **FeathersAuth**. Utilizam a técnica *render props* para passar adiante o objeto do cliente Feathers e para gerenciar o estado da sessão (login).
 
-Obs.: Acredito que teria sido melhor se eu tivesse feito um Context para isso, ou utilizado *Redux*.
+Obs.: Teria sido melhor se eu tivesse utilizado um *ContextProvider* ou *Redux* para isso.
 
 
 #### Icons
@@ -120,18 +130,18 @@ Apenas um formulário de login. Utilizado para a autênticação da página de g
 
 #### Modal
 
-Conjuntos de componentes feitos para seguir o design passado como exemplo.
+Conjuntos de componentes para desenhar um modal igual ao do exeplo dado como referência.
 
 
 #### ParticipantPicture
 
-A partid dos dados de um participante, baixa a sua respectiva imagem e renderiza um elemento imagem, colocando o nome do participante na propriedade *alt* da imagem.
+A partir dos dados de um participante, baixa a sua respectiva imagem e renderiza um elemento *img*, colocando o nome do participante na propriedade *alt* da imagem.
 
 
 #### Selectable
 
-Faz um conteúdo se tornar selecinável (como um *checkbox* ou *radio*).
-Tive o cuidado para que seja acessivel usando também o teclado.
+Faz um conteúdo se tornar selecionável (como um *checkbox* ou *radio*).
+Tive o cuidado para que seja acessivel usando também o teclado, e que o *:focus* seja visualmente percebido.
 
 
 #### SelectableParticipant
@@ -141,16 +151,28 @@ União dos componentes **ParticipantPicture** e **Selectable**.
 
 #### ParticipantsSelect
 
-Renderiza um conjunto de **SelectableParticipant**s com comportamento de *radio button*. Pode ser selecionado utilizando o teclado (tab para selecionar, setas para alterar valor etc.).
+Renderiza um conjunto de **SelectableParticipant**s com comportamento de *radio button*. Pode ser selecionado utilizando o teclado (tab para selecionar e setas para alterar a seleçao).
+
+#### VotingModal
+
+Modal que contém a interface de votação e resultados, cada qual em um sub-componente.
+
+Quando a tela de resultados está aberta, é realizado pooling dos resultados da votação a cada 15 segundos.
+
+No banco de dados os votos são acumulados em memória antes de serem inseridos no banco de dados (para melhorar a performance de inserção).
+
+Assim demora no máximo uns 10 segundos para o voto ser gravado no banco de dados, e 15 segundos para refletir na tela.
+
+Como o volume de votos é grande isso não vai impactar muito a experiência. Um único voto não terá muito impacto na proporção total.
 
 
 ### Estilos
 
-A fonte na imagem de exemplo que forneceram parecia ser a "ProximaNova" que é utilizada bastante pela Globo.com. Porém como a fonte não é gratuíta, resolvi usar a Raleway da Google que é relativamente semelhante.
+A fonte na imagem de exemplo que forneceram parece ser a "ProximaNova" que é utilizada bastante pela Globo.com. Porém como a fonte não é gratuíta, resolvi usar a Raleway, da Google, que é relativamente semelhante.
 
 Adicionei autoprefixer ao sistema de build para facilitar compatibilidade com outros navegadores (IE, Safari etc.).
 
-Optei pelo uso de *CSS Modules* para que as classes fiquem em escopo local, ou seja, não preciso me preocupar com nomes repetidos em arquivos diferentes.
+Optei pelo uso de *CSS Modules* para que as classes fiquem com escopo local por arquivo.
 
 Para poder reutilizar componentes com diferentes estilos, criei um *ThemeContext* para prover as classes.
 
@@ -158,34 +180,32 @@ Para poder reutilizar componentes com diferentes estilos, criei um *ThemeContext
 ## Back End
 
 ### Banco de dados
-Optei por utilizar o MariaDB, estruturei os dados de maneira bem relacional.
+Optei por utilizar o MariaDB. Pensei em usar Mongo ou outra solução não relacional. Porém preferi modelar de forma relacional.
 
 #### Estrutura do banco de dados
 ![DatabaseStructure](database_structure.png)
 
 ### Performance
 
-Um insert por voto não alcancaria uma boa performance. Principalmente por conta da atualização dos índices. Optei por guardar os votos em memória e salvar eles no banco de dados em intervalos (a cada 10 segundos, por exemplo), assim utilizo um único insert para uma quantidade maior de votos e diminuindo o número de atualização dos índices.
+#### Votos
 
-Com isso consegui, na minha máquina, em torno de 1000 votos por segundo (sem a validação captcha). Não fui capaz de testar a performance incluindo a validação, e não sei como faria um teste preciso, pois depende muito do estado da rede (e o servidor do ReCaptcha passou a ignorar requests da minha máquina por conta do excesso de requests em algumas tentativas de testes).
+Realizar um insert imediatamente ao receber cada voto não alcancaria uma boa performance, principalmente por conta da atualização dos índices.
 
-Ainda assim, imagino que a validação recaptcha iria diminuir a performance do servidor na metade. Seria interessante tentar uma estratégia de validar o captcha com outro servidor antes de enviar o voto para o servidor *Feathers*. Este servidor de validação de captcha poderia ser um proxy entre o cliente e o servidor feathers, que só repasse o voto se o captcha for validado; ou poderia
+Optei por acumular os votos em memória e salvar eles no banco em lotes, a cada 10 segundos os votos acumulados são inseridos no banco de dados.
 
-Para aguentar a carga de 1000 votos por segundo (ou mais), mesmo com validação do *ReCaptcha*, seria importante ter mais de uma instância do servidor de back-end e um balanceador de carga.
+Com um único processo (e JavaScript não tem threads) consegui perto dos 1000 votos por segundo (sem a validação de captcha).
 
-### Transporte Cliente/Servidor
+Não fui capaz de testar a performance incluindo o teste de captcha.
 
-Para usuários comuns, na página de votação. A comunicação com o servidor será por HTTP(S) (REST). Utilizar transporte baseado em conexão (websockets) seria muito custoso (imagino um número muito grande de conexões).
+Acredito ser possível atingir a performance desejada com pelo menos duas (ou três) instâncias do servidor de back-end e um balanceador de carga.
 
-Para usuários do *Dashboard Adminsitrativo*. Será usado *web-sockets*. Assim, fica mais simples atualizar os dados em tempo real.
+#### Demais requisições
 
-No fim imagino que tenha sido uma má ideia utilizar *web-sockets* para a tela de administração. Pois assim não posso utilizar o [`Cluster`](https://nodejs.org/api/cluster.html) do NodeJS, pois seria impossível garantir que o mesmo processo que realizou o *handshake* inicial receberia a conexão websocket.
+Para atender as requisições de imagens dos participantes e dos dados do paredão, sem comprometer a performance do(s) servidor(es) back-end, seria interessante instalar um cache (*Redis* etc) com tempo de vida generoso para as imagens (dos participantes), e de alguns segundos para dados do paredão (número de votos, etc).
 
 
-## Testes:
+## Transporte (comunicação cliente/servidor)
 
-Para testes unitários no front-end, optei pelo [*Mocha*](https://mochajs.org/) com asserções do [*Chai*](https://www.chaijs.com/), pois já tenho alguma familiariedade com eles.
+Para usuários comuns, na página de votação. A comunicação com o servidor será por HTTP(S) (REST). Utilizar transporte baseado em conexão (websockets) seria muito custoso (número muito grande de conexões).
 
-Nunca havia usado essas feramentas com *React*. Foi um pequeno desafio configurar.
-
-Não tive tempo para dar muita atenção aos testes. Se tivesse mais tempo, escreveria testes para cada componente.
+Para usuários do *Dashboard Adminsitrativo*. Utilizei *web-sockets*. Assim, fica mais simples atualizar os dados em tempo real. Porém isso dificulta a utilização do [`cluster`](https://nodejs.org/api/cluster.html) do NodeJS, pois com vários processos na mesma máquina dividindo a mesma porta, não é possível garantir que o mesmo processo que realizou o *handshake* inicial receberia o segundo passo para estabelecer a conexão web-socket. Acredito que seria melhor trocar para REST, o que eu faria se tivesse mais tempo.

@@ -34,7 +34,7 @@ class Votar extends React.Component {
   }
 
   fetchWallData = () => {
-    return fetch(`${process.env.SERVER_URL}/current-wall`)
+    return fetch(`${process.env.API_URL}/current-wall`)
       .then(response => response.json())
       .then(([wallData]) => {
         if (wallData) {

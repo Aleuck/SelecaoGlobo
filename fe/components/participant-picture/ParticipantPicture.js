@@ -24,7 +24,7 @@ class ParticipantPicture extends React.Component {
   loadImage() {
     const { participant } = this.props;
     if (participant.image) {
-      fetch(`${process.env.SERVER_URL}/images/${participant.image}`)
+      fetch(`${process.env.API_URL}/images/${participant.image}`)
         .then(respone => respone.json())
         .then(imageData => {
           this.setState({
