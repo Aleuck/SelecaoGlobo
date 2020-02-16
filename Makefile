@@ -98,7 +98,7 @@ start-db: .container-db wait-for-it
 	# Starting existing database container
 	sudo docker start aleuck-bbb-db
 	# Waiting for database to startup...
-	./wait-for-it/wait-for-it.sh 172.44.0.22:3306 -t 0
+	./wait-for-it.sh 172.44.0.22 3306
 
 start-be: .container-be
 	# Starting existing back-end container
