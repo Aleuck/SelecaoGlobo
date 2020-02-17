@@ -1,3 +1,4 @@
+import '../../themes/base-css';
 import Client from '../../components/feathers/FeathersClient';
 import Auth from '../../components/feathers/FeathersAuth';
 
@@ -6,8 +7,6 @@ import Dashboard from '../../components/dashboard';
 
 import { ThemeProvider } from '@material-ui/core/styles/';
 import muiTheme from '../../mui-themes/default';
-
-import '../../themes/base-css';
 
 const Admin = () => (
   <ThemeProvider theme={muiTheme}>

@@ -12,8 +12,8 @@ import { DatePicker } from '@material-ui/pickers';
 
 class EditSeasonDialog extends React.Component {
   static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    seasonId: PropTypes.number.isRequired,
+    onSubmit: PropTypes.func,
+    seasonId: PropTypes.number,
   }
 
   constructor(props) {

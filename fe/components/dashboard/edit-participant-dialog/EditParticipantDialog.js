@@ -38,9 +38,9 @@ class ImageDropzone extends React.Component {
           <div
             {...getRootProps()}
             className={this.context.selectableParticipant.participant__imgPlaceholder}
-            style={this.props.preview && {
+            style={this.props.preview ? {
               backgroundImage: `url(${this.props.preview})`,
-            }}
+            } : null}
           >
             {!this.props.preview && 'Clique ou arraste uma imagem aqui'}
             <input {...getInputProps()} />
@@ -54,22 +54,57 @@ class EditParticipantDialog extends React.Component {
   static propTypes = {
     client: PropTypes.object.isRequired,
     onSubmit: PropTypes.func,
-    seasonId: PropTypes.number.isRequired,
+    seasonId: PropTypes.number,
+    participant: PropTypes.object,
     open: PropTypes.bool,
     onClose: PropTypes.func,
   };
+
   constructor(props) {
     super(props);
-
     this.state = {
-      name: '',
-      image: {},
+      id: null,
+      name:  '',
+      image: null,
+      imageData: null,
     };
   }
 
+  init = () => {
+    const participant = this.props.participant;
+    this.setState({
+      id: participant ? participant.id : null,
+      name: participant ? participant.name : '',
+      image: participant ? participant.image : null,
+      imageData: null,
+    });
+  }
+
+  componentDidMount() {
+    this.init();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.open && this.props.open) {
+      this.init();
+    }
+    if (this.state.image && !this.state.imageData) {
+      this.fetchImage();
+    }
+  }
+
+  fetchImage = () => {
+      fetch(`${process.env.API_URL}/images/${this.state.image}`)
+        .then(response => response.json())
+        .then(data => {
+          this.setState({
+            imageData: data,
+            image: data.id,
+          });
+        })
+  }
+
   handleImageDropAccepted = ([file]) => {
-    console.log('onDrop!!!');
-    console.log(file);
     const data = new FormData();
     data.append('uri', file);
     this.props.client.get('authentication')
@@ -96,7 +131,8 @@ class EditParticipantDialog extends React.Component {
 
   handleImageSendComplete = data => {
     this.setState({
-      image: data,
+      imageData: data,
+      image: data.id,
     });
   }
 
@@ -108,10 +144,10 @@ class EditParticipantDialog extends React.Component {
 
   handleSubmit = () => {
     this.props.onSubmit({
-      id: this.props.seasonId,
-      title: this.state.title,
-      startsAt: this.state.startsAt,
-      endsAt: this.state.endsAt,
+      id: this.state.id,
+      name: this.state.name,
+      image: this.state.image,
+      seasonId: this.props.seasonId,
     });
   }
 
@@ -128,25 +164,27 @@ class EditParticipantDialog extends React.Component {
         fullWidth
         maxWidth="sm"
       >
-        <DialogTitle id="dialog-create-season-title">
-          {this.props.seasonId ? 'Editar participante' : 'Adicionar participante' }
+        <DialogTitle id="dialog-create-participante-title">
+          {this.props.participant ? 'Editar participante' : 'Adicionar participante' }
         </DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 label="Nome"
-                onChange={this.handleInputChange('title')}
-                value={this.state.title}
+                onChange={this.handleInputChange('name')}
+                value={this.state.name}
                 fullWidth
+                required
               />
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body2">Foto</Typography>
               <ImageDropzone
+                client={this.props.client}
                 onDropAccepted={this.handleImageDropAccepted}
                 onDropRejected={this.handleImageDropRejected}
-                preview={this.state.image.uri}
+                preview={this.state.imageData && this.state.imageData.uri}
               />
             </Grid>
           </Grid>

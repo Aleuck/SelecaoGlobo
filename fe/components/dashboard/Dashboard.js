@@ -8,15 +8,13 @@ import {
   Typography,
   Tabs,
   Tab,
-  Fab,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
-import { Add } from '@material-ui/icons';
 import LuxonUtils from '@date-io/luxon';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import EditSeasoDialog from './edit-season-dialog';
-import EditParticipantDialog from './edit-participant-dialog';
+import SeasonView from './season-view';
 
 const styles = theme => ({
   title: {
@@ -98,7 +96,6 @@ const createTabPanelComponent = identifier => {
 };
 
 const SeasonTabPanel = createTabPanelComponent('season');
-const SeasonTabTabPanel = createTabPanelComponent('season-tab');
 
 function a11yProps(index) {
   return {
@@ -151,7 +148,7 @@ class Dashboard extends React.Component {
     this.seasonsService.find()
       .then(response => {
         this.setState({
-          seasons: [...response],
+          seasons: this.sortSeasons([...response]),
           selectedSeason: response.length - 1,
           currentTab: response.length,
         });
@@ -165,43 +162,20 @@ class Dashboard extends React.Component {
     this.seasonsService.removeAllListeners('created');
   }
 
+  sortSeasons = seasons => seasons.sort((a, b) => {
+    return (new Date(a.startsAt) - new Date(b.startsAt));
+  });
+
   handleMessageSeasonCreated = season => {
-    console.log('SeasonCreated', season);
     this.setState({
-      seasons: [...this.state.seasons, season],
+      seasons: this.sortSeasons([...this.state.seasons, season]),
       selectedSeason: this.state.seasons.length,
       currentTab: this.state.seasons.length + 1,
     });
   };
 
-  handleMessageParticipantCreated = participant => {
-    console.log('ParticipantCreated', participant);
-    const currentSeasonIdx = this.state.selectedSeason - 1;
-    if (this.state.seasons[currentSeasonIdx]) {
-      this.setState({
-        participants: [...this.state.participants, participant],
-        currentTab: this.state.seasons.length + 1,
-      });
-    }
-  };
-
-  handleCreateParticipantClose = () => {
-    this.setState({ openEditParticipant: false });
-  };
-
-  handleCreateParticipantOpen = () => {
-    this.setState({ openEditParticipant: true });
-  };
-
   handleCreateSeasonSubmit = seasonData => {
     return this.seasonsService.create(seasonData);
-  };
-
-  handleCreateParticipantSubmit = participantData => {
-    return this.participantsService.create(participantData)
-      .then(() => {
-        this.setState({ openEditParticipant: false });
-      });
   };
 
   handleTabChange = (event, newValue) => {
@@ -225,7 +199,6 @@ class Dashboard extends React.Component {
       logout,
     } = this.props;
     const {
-      openEditParticipant,
       selectedSeason,
       seasons,
       currentTab,
@@ -279,51 +252,7 @@ class Dashboard extends React.Component {
               key={`season-tabpanel-${season.id}`}
               className={classes.seasonTabPanel}
             >
-              <AppBar
-                position="static"
-                variant="outlined"
-                color="default"
-              >
-                <Toolbar variant="dense">
-                  <Typography className={classes.seasonTitle}>Temporada {season.title}</Typography>
-                  <Tabs
-                    variant="scrollable"
-                    orientation="horizontal"
-                    className={classes.seasonTabs}
-                    value={1}
-                  >
-                    <Tab
-                      label="Participantes"
-                    />
-                    <Tab
-                      label="Paredões"
-                    />
-                  </Tabs>
-                </Toolbar>
-              </AppBar>
-              <SeasonTabTabPanel
-                index={0}
-                value={1}
-                className={classes.seasonTabTabPanel}
-              >
-                a
-              </SeasonTabTabPanel>
-              <SeasonTabTabPanel
-                index={1}
-                value={1}
-                className={classes.seasonTabTabPanel}
-              >
-                b
-              </SeasonTabTabPanel>
-              <Fab
-                color="primary"
-                aria-label="Adicionar temporada"
-                size="small"
-                className={classes.fab}
-                onClick={this.handleCreateParticipantOpen}
-              >
-                <Add />
-              </Fab>
+              <SeasonView client={this.client} season={season} />
             </SeasonTabPanel>
           ))}
           <SeasonTabPanel
@@ -336,13 +265,6 @@ class Dashboard extends React.Component {
               onSubmit={this.handleCreateSeasonSubmit}
             />
           </SeasonTabPanel>
-          <EditParticipantDialog
-            open={openEditParticipant}
-            onClose={this.handleCreateParticipantClose}
-            onSubmit={this.handleCreateParticipantSubmit}
-            client={this.client}
-            season={selectedSeason >= 0 ? seasons[selectedSeason].id : -1}
-          />
         </Layout>
       </MuiPickersUtilsProvider>
     );

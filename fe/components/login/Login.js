@@ -85,6 +85,7 @@ class Login extends React.Component {
                   onChange={this.inputChangeHandler('username')}
                   disabled={this.props.disabled}
                   className={classes.textField}
+                  autoComplete="username"
                   required
                   fullWidth
                 />
@@ -96,6 +97,7 @@ class Login extends React.Component {
                   onChange={this.inputChangeHandler('password')}
                   disabled={this.props.disabled}
                   className={classes.textField}
+                  autoComplete="current-password"
                   type="password"
                   required
                   fullWidth
