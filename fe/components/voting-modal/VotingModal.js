@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import Voting from './voting';
 import Results from './results';
 import fetch from 'isomorphic-fetch';
-
 import { propType as wallPropType } from '../../models/wall';
 
 const recaptchaRef = React.createRef();
@@ -26,28 +25,31 @@ class VotingModal extends React.Component {
   }
 
   componentDidMount() {
-    this.updateTime();
-    this.updateTimeHandler = setInterval(this.updateTime, 1000);
+    this.tick();
+    this.tickIntervalHandler = setInterval(this.tick, 1000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.updateTimeHandler);
+    clearInterval(this.tickIntervalHandler);
   }
 
-  updateTime = () => {
+  tick = () => {
     const timeLeft = Math.floor((new Date(this.props.wall.endsAt) - Date.now()) / 1000);
     const canVote = timeLeft > 0;
-    if (
-      (!canVote || this.state.votedOnId) &&
-      typeof this.props.onRequestWallUpdate === 'function' &&
-      (timeLeft % 15 === 0)
-    ) {
-      this.props.onRequestWallUpdate();
-    }
+
     this.setState({
       timeLeft,
       canVote,
     });
+
+    // update results every 11 seconds
+    if (timeLeft % 11 === 0) {
+      if (canVote && this.state.votedOnId) {
+        if (typeof this.props.onRequestWallUpdate === 'function') {
+          this.props.onRequestWallUpdate();
+        }
+      }
+    }
   }
 
   handleRecaptchaChange = value => {
@@ -125,6 +127,7 @@ class VotingModal extends React.Component {
 
   render() {
     const { participants } = this.props.wall;
+    const showVoting = this.state.canVote && !this.state.votedOnId;
     return (
       <Modal open={this.props.open} onClose={this.handleModalClose}>
         <ModalHeader
