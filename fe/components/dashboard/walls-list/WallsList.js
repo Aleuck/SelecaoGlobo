@@ -168,7 +168,12 @@ class WallsList extends React.Component {
     if (wall.id) {
       this.service.update(wall.id, wall);
     } else {
-      this.service.create(wall);
+      this.service.create({
+        title: wall.title,
+        startsAt: wall.startsAt,
+        endsAt: wall.endsAt,
+        seasonId: wall.seasonId,
+      });
     }
     this.closeEditWall();
   }
