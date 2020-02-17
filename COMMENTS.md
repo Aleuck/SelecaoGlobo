@@ -279,6 +279,7 @@ Nunca havia criado uma rede no docker antes. Com isso, tive dificuldades com o d
 ## Lista de algumas coisas que deixei de fazer por falta de tempo
 
   - Resultados e estatísticas dos paredões no painel de administração;
+  - Uma forma de incluir participantes num paredão;
   - Transição mais suave entre a tela de votar e a tela de resultados;
   - Animação do gráfico ao atualizar os resultados;
   - Tratar erros em vários lugares;
