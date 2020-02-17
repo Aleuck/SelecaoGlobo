@@ -48,7 +48,10 @@ make run
 ```
 
 **Acessar** a *aplicação*:
-  - Acessar http://localhost:3000/
+  - Votação: http://localhost:3000/ 
+  - Painel de administração: http://localhost:3000/admin
+    - Usuário: admin
+    - Senha: selecaoglobo
 
 **Parar** os *containers*:
 ```sh
@@ -263,3 +266,28 @@ Para atender as requisições de imagens dos participantes e dos dados do pared�
 Para usuários comuns, na página de votação. A comunicação com o servidor será por HTTP(S) (REST). Utilizar transporte baseado em conexão (websockets) seria muito custoso (número muito grande de conexões).
 
 Para usuários do *Dashboard Adminsitrativo*. Utilizei *web-sockets*. Assim, fica mais simples atualizar os dados em tempo real. Porém isso dificulta a utilização do [`cluster`](https://nodejs.org/api/cluster.html) do NodeJS, pois com vários processos na mesma máquina dividindo a mesma porta, não é possível garantir que o mesmo processo que realizou o *handshake* inicial receberia o segundo passo para estabelecer a conexão web-socket. Acredito que seria melhor trocar para REST, o que eu faria se tivesse mais tempo.
+
+
+## Dificuldades
+
+Minha experiência com ReactJS é limitada, e eu nunca havia trabalhado com Next.js (apenas feito o tutorial).
+
+FeathersJS eu só tinha usado antes em um projeto pessoal inacabado.
+
+Nunca havia criado uma rede no docker antes. Com isso, tive dificuldades com o docker do MariaDB pois o serviço demora um pouco para iniciar, e eu acabava iniciando o container do back-end antes do serviço do mariadb estar pronto. Usei um script de workaround para esperar o serviço subir antes de continuar.
+
+## Lista de algumas coisas que deixei de fazer por falta de tempo
+
+  - Resultados e estatísticas dos paredões no painel de administração;
+  - Transição mais suave entre a tela de votar e a tela de resultados;
+  - Animação do gráfico ao atualizar os resultados;
+  - Tratar erros em vários lugares;
+  - Desenvolver testes;
+  - Barra de progresso ao fazer upload de imagem de participante;
+  - Tela para editar as informações (título e datas) de uma temporada;
+  - Migrar de socket.io para REST no painel de adminstraçao (para poder ter mais de um processo na mesma máquina no back-end);
+  - Interface mais responsiva;
+  - Revisar melhor este arquivo;
+  - Dar mais atenção para meu parceiro;
+  - Passar mais tempo com a família e amigos; e
+  - Dormir mais.

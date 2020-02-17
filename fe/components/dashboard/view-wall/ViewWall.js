@@ -22,37 +22,8 @@ class EditWallDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: null,
-      title: '',
       status: 'loading',
     };
-  }
-
-  init = () => {
-    const wall = this.props.wall;
-    const today = new Date();
-    today.setHours(0);
-    today.setMinutes(0);
-    today.setSeconds(0);
-    today.setMilliseconds(0);
-    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-    this.setState({
-      id: wall ? wall.id : null,
-      title: wall ? wall.title : '',
-      startsAt: wall ? wall.startsAt : today,
-      endsAt: wall ? wall.endsAt : tomorrow,
-
-    });
-  }
-
-  componentDidMount() {
-    this.init();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevProps.open && this.props.open) {
-      this.init();
-    }
   }
 
   render() {
@@ -72,6 +43,8 @@ class EditWallDialog extends React.Component {
         {this.state.status === 'loading' && (
           <DialogContent style={{ textAlign: 'center' }}>
             <CircularProgress />
+
+            <p>Não tive tempo de terminar :(</p>
           </DialogContent>
         )}
         {this.state.status === 'loaded' && (
