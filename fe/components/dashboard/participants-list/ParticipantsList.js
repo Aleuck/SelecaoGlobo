@@ -135,7 +135,11 @@ class ParticipantsList extends React.Component {
     if (participant.id) {
       this.service.update(participant.id, participant);
     } else {
-      this.service.create(participant);
+      this.service.create({
+        name: participant.name,
+        image: participant.image,
+        seasonId: participant.seasonId,
+      });
     }
     this.closeEditParticipant();
   }
